@@ -1,0 +1,4181 @@
+From: <Saved by Blink>
+Snapshot-Content-Location: https://ametice.univ-amu.fr/pluginfile.php/6649638/mod_resource/content/1/pySpark_mag3_2022.ipynb
+Subject: 
+Date: Wed, 19 Oct 2022 19:16:42 -0000
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--iNjjuNTEy84MQYzuTQhTpuUZZwj9q2l3RBCH7ODnlz----"
+
+
+------MultipartBoundary--iNjjuNTEy84MQYzuTQhTpuUZZwj9q2l3RBCH7ODnlz----
+Content-Type: text/html
+Content-ID: <frame-DD25CB52DA394255A85A476E22418440@mhtml.blink>
+Content-Transfer-Encoding: quoted-printable
+Content-Location: https://ametice.univ-amu.fr/pluginfile.php/6649638/mod_resource/content/1/pySpark_mag3_2022.ipynb
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
+=3DUTF-8"><link rel=3D"stylesheet" type=3D"text/css" href=3D"cid:css-35ff89=
+50-fa3f-4fa5-be96-850e9f9a59be@mhtml.blink" /><link rel=3D"stylesheet" type=
+=3D"text/css" href=3D"cid:css-dab71e8e-ea22-4361-a6d7-7e3dcd69be13@mhtml.bl=
+ink" /><link rel=3D"stylesheet" type=3D"text/css" href=3D"cid:css-5ce65b61-=
+df98-4794-aa12-cdb4326bde58@mhtml.blink" /><link rel=3D"stylesheet" type=3D=
+"text/css" href=3D"cid:css-d5ad93ec-9951-4ec9-9792-3d3c3ba2fe91@mhtml.blink=
+" /><link rel=3D"stylesheet" type=3D"text/css" href=3D"cid:css-38df509b-78a=
+4-4733-a998-6fbaa104eaf6@mhtml.blink" /><link rel=3D"stylesheet" type=3D"te=
+xt/css" href=3D"cid:css-d844d17d-2423-4e5a-a937-a35e9c3def3b@mhtml.blink" /=
+><link rel=3D"stylesheet" type=3D"text/css" href=3D"cid:css-d886bf03-4d61-4=
+a95-81de-b1a307253b38@mhtml.blink" /><link rel=3D"stylesheet" type=3D"text/=
+css" href=3D"cid:css-bd1cadf9-4caa-46e6-84e1-a56438850648@mhtml.blink" /><l=
+ink rel=3D"stylesheet" type=3D"text/css" href=3D"cid:css-df7b9855-6dd7-45ba=
+-9eef-c74f1eb1d301@mhtml.blink" /><link rel=3D"stylesheet" type=3D"text/css=
+" href=3D"cid:css-359da651-cc62-4a3c-a00b-1eb792cd23a5@mhtml.blink" /></hea=
+d><body data-new-gr-c-s-check-loaded=3D"14.1084.0" data-gr-ext-installed=3D=
+"">{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "collapsed_sections": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Traitement en pyspark\n",
+        "\n",
+        "Octobre 2022, Mag 3"
+      ],
+      "metadata": {
+        "id": "dQz4zVbgP6-r"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "uR35bCCCFjKA",
+        "outputId": "701edc66-b9c8-440a-d204-d47d7b940bad"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Looking in indexes: https://pypi.org/simple, https://us-python=
+.pkg.dev/colab-wheels/public/simple/\n",
+            "Collecting pyspark\n",
+            "  Downloading pyspark-3.3.0.tar.gz (281.3 MB)\n",
+            "\u001b[K     |=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=
+=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=
+=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=
+=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=
+=96=88=E2=96=88| 281.3 MB 43 kB/s \n",
+            "\u001b[?25hCollecting py4j=3D=3D0.10.9.5\n",
+            "  Downloading py4j-0.10.9.5-py2.py3-none-any.whl (199 kB)\n",
+            "\u001b[K     |=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=
+=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=
+=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=
+=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=
+=96=88=E2=96=88| 199 kB 53.4 MB/s \n",
+            "\u001b[?25hBuilding wheels for collected packages: pyspark\n",
+            "  Building wheel for pyspark (setup.py) ... \u001b[?25l\u001b[=
+?25hdone\n",
+            "  Created wheel for pyspark: filename=3Dpyspark-3.3.0-py2.py3-=
+none-any.whl size=3D281764026 sha256=3D2dc14c65b6f7bee73ac68afe4e3053a01c06=
+a76bf2aa415c08b578a7331fb7f5\n",
+            "  Stored in directory: /root/.cache/pip/wheels/7a/8e/1b/f73a52=
+650d2e5f337708d9f6a1750d451a7349a867f928b885\n",
+            "Successfully built pyspark\n",
+            "Installing collected packages: py4j, pyspark\n",
+            "Successfully installed py4j-0.10.9.5 pyspark-3.3.0\n"
+          ]
+        }
+      ],
+      "source": [
+        "!pip install pyspark"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pyspark"
+      ],
+      "metadata": {
+        "id": "g8k29_kbHR2n"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Cr=C3=A9ation de la session Spark"
+      ],
+      "metadata": {
+        "id": "XnchvChQQY4R"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "spark =3D pyspark.sql.SparkSession.builder.appName('Ma session').g=
+etOrCreate()"
+      ],
+      "metadata": {
+        "id": "EzGSytkPQFSY"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "spark"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 219
+        },
+        "id": "C93wkTcXRRML",
+        "outputId": "1a70f684-6fdd-4245-8b78-159294278667"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "<pyspark.sql.session.sparksession at=3D"" 0x7fa3b1b13650=3D"=
+">"
+            ],
+            "text/html": [
+              "\n",
+              "            <div>\n",
+              "                <p><b>SparkSession - in-memory</b></p>\n",
+              "                \n",
+              "        <div>\n",
+              "            <p><b>SparkContext</b></p>\n",
+              "\n",
+              "            <p><a href=3D"https://ametice.univ-amu.fr/%22htt=
+p://9f70ddb15d90:4040/%22">Spark UI</a></p>\n",
+              "\n",
+              "            <dl>\n",
+              "              <dt>Version</dt>\n",
+              "                <dd><code>v3.3.0</code></dd>\n",
+              "              <dt>Master</dt>\n",
+              "                <dd><code>local[*]</code></dd>\n",
+              "              <dt>AppName</dt>\n",
+              "                <dd><code>Ma session</code></dd>\n",
+              "            </dl>\n",
+              "        </div>\n",
+              "        \n",
+              "            </div>\n",
+              "        "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 4
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!curl -O https://raw.githubusercontent.com/datasciencedojo/dataset=
+s/master/titanic.csv"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "zAFOFdpKRVBq",
+        "outputId": "1f0e4907-1fa7-4395-e4c1-9d35950fd285"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "  % Total    % Received % Xferd  Average Speed   Time    Time =
+    Time  Current\n",
+            "                                 Dload  Upload   Total   Spent=
+    Left  Speed\n",
+            "\r  0     0    0     0    0     0      0      0 --:--:-- --:--=
+:-- --:--:--     0\r100 60302  100 60302    0     0   754k      0 --:--:-- =
+--:--:-- --:--:--  754k\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!ls -lh"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "bhcJTaaqU5zg",
+        "outputId": "72c5c613-9186-4b55-d2b3-992134ae2b9d"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "total 68K\n",
+            "drwx------ 6 root root 4.0K Oct  8 06:28 drive\n",
+            "drwxr-xr-x 1 root root 4.0K Oct  5 13:35 sample_data\n",
+            "-rw-r--r-- 1 root root  59K Oct  8 06:29 titanic.csv\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Commande linux pour regarder le d=C3=A9but du fichier\n",
+        "!head titanic.csv"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Ea2NhkaWVtIQ",
+        "outputId": "fa9b6cc3-1776-4a51-aab5-05ecaf68a9fd"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "PassengerId,Survived,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fa=
+re,Cabin,Embarked\n",
+            "1,0,3,\"Braund, Mr. Owen Harris\",male,22,1,0,A/5 21171,7.25,,=
+S\n",
+            "2,1,1,\"Cumings, Mrs. John Bradley (Florence Briggs Thayer)\",=
+female,38,1,0,PC 17599,71.2833,C85,C\n",
+            "3,1,3,\"Heikkinen, Miss. Laina\",female,26,0,0,STON/O2. 310128=
+2,7.925,,S\n",
+            "4,1,1,\"Futrelle, Mrs. Jacques Heath (Lily May Peel)\",female,=
+35,1,0,113803,53.1,C123,S\n",
+            "5,0,3,\"Allen, Mr. William Henry\",male,35,0,0,373450,8.05,,S\=
+n",
+            "6,0,3,\"Moran, Mr. James\",male,,0,0,330877,8.4583,,Q\n",
+            "7,0,1,\"McCarthy, Mr. Timothy J\",male,54,0,0,17463,51.8625,E4=
+6,S\n",
+            "8,0,3,\"Palsson, Master. Gosta Leonard\",male,2,3,1,349909,21.=
+075,,S\n",
+            "9,1,3,\"Johnson, Mrs. Oscar W (Elisabeth Vilhelmina Berg)\",fe=
+male,27,0,2,347742,11.1333,,S\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Lecture du fichier CSV"
+      ],
+      "metadata": {
+        "id": "7iJUuRtjWPnx"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "spark.read.csv('titanic.csv', sep=3D',', header=3DTrue)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "lXu8YCDjWCrj",
+        "outputId": "0e672fe1-9540-4115-f744-a488ec3aed3b"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "DataFrame[PassengerId: string, Survived: string, Pclass: str=
+ing, Name: string, Sex: string, Age: string, SibSp: string, Parch: string, =
+Ticket: string, Fare: string, Cabin: string, Embarked: string]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 9
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Afficher les 5 premi=C3=A8res lignes avec .show(5)\n",
+        "spark.read.csv('titanic.csv', sep=3D',', header=3DTrue).show(5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ug5GSg3EXJGF",
+        "outputId": "f6232435-3db5-4787-c988-f87e36265bfb"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-----------+--------+------+--------------------+------+---+-=
+----+-----+----------------+-------+-----+--------+\n",
+            "|PassengerId|Survived|Pclass|                Name|   Sex|Age|S=
+ibSp|Parch|          Ticket|   Fare|Cabin|Embarked|\n",
+            "+-----------+--------+------+--------------------+------+---+-=
+----+-----+----------------+-------+-----+--------+\n",
+            "|          1|       0|     3|Braund, Mr. Owen ...|  male| 22| =
+   1|    0|       A/5 21171|   7.25| null|       S|\n",
+            "|          2|       1|     1|Cumings, Mrs. Joh...|female| 38| =
+   1|    0|        PC 17599|71.2833|  C85|       C|\n",
+            "|          3|       1|     3|Heikkinen, Miss. ...|female| 26| =
+   0|    0|STON/O2. 3101282|  7.925| null|       S|\n",
+            "|          4|       1|     1|Futrelle, Mrs. Ja...|female| 35| =
+   1|    0|          113803|   53.1| C123|       S|\n",
+            "|          5|       0|     3|Allen, Mr. Willia...|  male| 35| =
+   0|    0|          373450|   8.05| null|       S|\n",
+            "+-----------+--------+------+--------------------+------+---+-=
+----+-----+----------------+-------+-----+--------+\n",
+            "only showing top 5 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "spark.read.csv('titanic.csv', sep=3D',', header=3DTrue, inferSchem=
+a=3DTrue)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "6wmPs4r-ZN_K",
+        "outputId": "ae960a46-3d63-4fd8-c4bc-b9de88f469dc"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "DataFrame[PassengerId: int, Survived: int, Pclass: int, Name=
+: string, Sex: string, Age: double, SibSp: int, Parch: int, Ticket: string,=
+ Fare: double, Cabin: string, Embarked: string]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 11
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf =3D spark.read.csv('titanic.csv', sep=3D',', header=3D=
+True, inferSchema=3DTrue)"
+      ],
+      "metadata": {
+        "id": "xUWym0PKaLca"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf.show(5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-dYnsWZabbfg",
+        "outputId": "9a2e8032-aaa1-42a3-a7d5-bd8e18776b3f"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+\n",
+            "|PassengerId|Survived|Pclass|                Name|   Sex| Age|=
+SibSp|Parch|          Ticket|   Fare|Cabin|Embarked|\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+\n",
+            "|          1|       0|     3|Braund, Mr. Owen ...|  male|22.0|=
+    1|    0|       A/5 21171|   7.25| null|       S|\n",
+            "|          2|       1|     1|Cumings, Mrs. Joh...|female|38.0|=
+    1|    0|        PC 17599|71.2833|  C85|       C|\n",
+            "|          3|       1|     3|Heikkinen, Miss. ...|female|26.0|=
+    0|    0|STON/O2. 3101282|  7.925| null|       S|\n",
+            "|          4|       1|     1|Futrelle, Mrs. Ja...|female|35.0|=
+    1|    0|          113803|   53.1| C123|       S|\n",
+            "|          5|       0|     3|Allen, Mr. Willia...|  male|35.0|=
+    0|    0|          373450|   8.05| null|       S|\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+\n",
+            "only showing top 5 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## La structure du dataframe Spark"
+      ],
+      "metadata": {
+        "id": "cWcpdWFfcMFH"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf.printSchema()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "27pk6BPhbuJu",
+        "outputId": "62822e0b-e378-45d3-cd9c-b0f5e3c0f889"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "root\n",
+            " |-- PassengerId: integer (nullable =3D true)\n",
+            " |-- Survived: integer (nullable =3D true)\n",
+            " |-- Pclass: integer (nullable =3D true)\n",
+            " |-- Name: string (nullable =3D true)\n",
+            " |-- Sex: string (nullable =3D true)\n",
+            " |-- Age: double (nullable =3D true)\n",
+            " |-- SibSp: integer (nullable =3D true)\n",
+            " |-- Parch: integer (nullable =3D true)\n",
+            " |-- Ticket: string (nullable =3D true)\n",
+            " |-- Fare: double (nullable =3D true)\n",
+            " |-- Cabin: string (nullable =3D true)\n",
+            " |-- Embarked: string (nullable =3D true)\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## D=C3=A9finition d'un sch=C3=A9ma"
+      ],
+      "metadata": {
+        "id": "fpFJMVSPd9TY"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# https://dpaste.org/kgOFt\n",
+        "\n",
+        "from pyspark.sql.types import *\n",
+        "\n",
+        "titanic_schema =3D StructType([\n",
+        "    StructField('PassengerId', IntegerType(), False),\n",
+        "    StructField('Survived', IntegerType(), False),\n",
+        "    StructField('Pclass', IntegerType(), True),\n",
+        "    StructField('Name', StringType(), True),\n",
+        "    StructField('Sex', StringType(), True),\n",
+        "    StructField('Age', DoubleType(), True),\n",
+        "    StructField('SibSp', IntegerType(), True),\n",
+        "    StructField('Parch', IntegerType(), True),\n",
+        "    StructField('Ticket', StringType(), True),\n",
+        "    StructField('Fare', DoubleType(), True),\n",
+        "    StructField('Cabin', StringType(), True),\n",
+        "    StructField('Embarked', StringType(), True),\n",
+        "])"
+      ],
+      "metadata": {
+        "id": "TTPA_-_ieAio"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "spark.read.csv('titanic.csv', sep=3D',', header=3DTrue, schema=3Dt=
+itanic_schema)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "KBNEhGADfHJ0",
+        "outputId": "020e97bc-c2bc-483f-cae9-85a81034eb90"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "DataFrame[PassengerId: int, Survived: int, Pclass: int, Name=
+: string, Sex: string, Age: double, SibSp: int, Parch: int, Ticket: string,=
+ Fare: double, Cabin: string, Embarked: string]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 16
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Les fonctions =C3=A9l=C3=A9mentaires d'un dataframe =E2=9D=97"
+      ],
+      "metadata": {
+        "id": "PIfEYoYJclVu"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Nombre de lignes\n",
+        "titanic_ddf.count()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-Gyu1gnXcSwx",
+        "outputId": "c7323106-f9c6-40e3-e3b3-1047c546390f"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "891"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 17
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Afficher les premi=C3=A8res lignes, sans troncature\n",
+        "titanic_ddf.show(5, truncate=3DFalse)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "l-9H8SW7jVw8",
+        "outputId": "a79c2bf8-cc55-45aa-c1ce-9fd01fc88df2"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-----------+--------+------+---------------------------------=
+------------------+------+----+-----+-----+----------------+-------+-----+-=
+-------+\n",
+            "|PassengerId|Survived|Pclass|Name                             =
+                  |Sex   |Age |SibSp|Parch|Ticket          |Fare   |Cabin|E=
+mbarked|\n",
+            "+-----------+--------+------+---------------------------------=
+------------------+------+----+-----+-----+----------------+-------+-----+-=
+-------+\n",
+            "|1          |0       |3     |Braund, Mr. Owen Harris          =
+                  |male  |22.0|1    |0    |A/5 21171       |7.25   |null |S=
+       |\n",
+            "|2          |1       |1     |Cumings, Mrs. John Bradley (Flore=
+nce Briggs Thayer)|female|38.0|1    |0    |PC 17599        |71.2833|C85  |C=
+       |\n",
+            "|3          |1       |3     |Heikkinen, Miss. Laina           =
+                  |female|26.0|0    |0    |STON/O2. 3101282|7.925  |null |S=
+       |\n",
+            "|4          |1       |1     |Futrelle, Mrs. Jacques Heath (Lil=
+y May Peel)       |female|35.0|1    |0    |113803          |53.1   |C123 |S=
+       |\n",
+            "|5          |0       |3     |Allen, Mr. William Henry         =
+                  |male  |35.0|0    |0    |373450          |8.05   |null |S=
+       |\n",
+            "+-----------+--------+------+---------------------------------=
+------------------+------+----+-----+-----+----------------+-------+-----+-=
+-------+\n",
+            "only showing top 5 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Les fonctions de traitement de donn=C3=A9es\n",
+        "\n",
+        "* compter les occurences\n",
+        "* calculer les statistiques de base\n",
+        "* calculer des corr=C3=A9lations\n",
+        "* calculer des nouvelles colonnes\n",
+        "* recoder des valeurs\n",
+        "* transformer des colonnes (standardisation, etc.)\n",
+        "* traiter les valeurs manquantes\n",
+        "\n",
+        "Pour faire des graphiques, il faudra travailler avec pandas + matp=
+lotlib : Spark ne fait pas de graphique tout seul."
+      ],
+      "metadata": {
+        "id": "solQfMlKlvSK"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf.describe().show()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "GubWd1RVlfYP",
+        "outputId": "a7ae3ef7-e07c-4089-9d88-4a7d8e2f4a3f"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-------+-----------------+-------------------+---------------=
+---+--------------------+------+------------------+------------------+-----=
+--------------+------------------+-----------------+-----+--------+\n",
+            "|summary|      PassengerId|           Survived|            Pcl=
+ass|                Name|   Sex|               Age|             SibSp|     =
+         Parch|            Ticket|             Fare|Cabin|Embarked|\n",
+            "+-------+-----------------+-------------------+---------------=
+---+--------------------+------+------------------+------------------+-----=
+--------------+------------------+-----------------+-----+--------+\n",
+            "|  count|              891|                891|               =
+891|                 891|   891|               714|               891|     =
+           891|               891|              891|  204|     889|\n",
+            "|   mean|            446.0| 0.3838383838383838| 2.308641975308=
+642|                null|  null| 29.69911764705882|0.5230078563411896|0.381=
+59371492704824|260318.54916792738| 32.2042079685746| null|    null|\n",
+            "| stddev|257.3538420152301|0.48659245426485753|0.8360712409770=
+491|                null|  null|14.526497332334035|1.1027434322934315| 0.80=
+60572211299488|471609.26868834975|49.69342859718089| null|    null|\n",
+            "|    min|                1|                  0|               =
+  1|\"Andersson, Mr. A...|female|              0.42|                 0|    =
+              0|            110152|              0.0|  A10|       C|\n",
+            "|    max|              891|                  1|               =
+  3|van Melkebeke, Mr...|  male|              80.0|                 8|     =
+             6|         WE/P 5735|         512.3292|    T|       S|\n",
+            "+-------+-----------------+-------------------+---------------=
+---+--------------------+------+------------------+------------------+-----=
+--------------+------------------+-----------------+-----+--------+\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Transf=C3=A9rer les donn=C3=A9es vers Python / Pandas"
+      ],
+      "metadata": {
+        "id": "WpqVdSipoRff"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# --- Spark ------------&gt;---Python---&gt;\n",
+        "titanic_ddf.describe().toPandas()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 322
+        },
+        "id": "xWQGDo6Wmpii",
+        "outputId": "7e9fae91-ba07-4901-e342-fb8291b3ebd7"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "  summary        PassengerId             Survived           =
+   Pclass  \\\n",
+              "0   count                891                  891           =
+      891   \n",
+              "1    mean              446.0   0.3838383838383838   2.308641=
+975308642   \n",
+              "2  stddev  257.3538420152301  0.48659245426485753  0.8360712=
+409770491   \n",
+              "3     min                  1                    0           =
+        1   \n",
+              "4     max                891                    1           =
+        3   \n",
+              "\n",
+              "                                               Name     Sex =
+ \\\n",
+              "0                                               891     891 =
+  \n",
+              "1                                              None    None =
+  \n",
+              "2                                              None    None =
+  \n",
+              "3  \"Andersson, Mr. August Edvard (\"\"Wennerstrom\"\")\"  f=
+emale   \n",
+              "4                       van Melkebeke, Mr. Philemon    male =
+  \n",
+              "\n",
+              "                  Age               SibSp                Par=
+ch  \\\n",
+              "0                 714                 891                  8=
+91   \n",
+              "1   29.69911764705882  0.5230078563411896  0.381593714927048=
+24   \n",
+              "2  14.526497332334035  1.1027434322934315   0.80605722112994=
+88   \n",
+              "3                0.42                   0                   =
+ 0   \n",
+              "4                80.0                   8                   =
+ 6   \n",
+              "\n",
+              "               Ticket               Fare Cabin Embarked  \n"=
+,
+              "0                 891                891   204      889  \n"=
+,
+              "1  260318.54916792738   32.2042079685746  None     None  \n"=
+,
+              "2  471609.26868834975  49.69342859718089  None     None  \n"=
+,
+              "3              110152                0.0   A10        C  \n"=
+,
+              "4           WE/P 5735           512.3292     T        S  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=3D"\&quot;df-e4123387-bbd1-44bb-9fcf-57a9b244d1c4\=
+&quot;">\n",
+              "    <div class=3D"\&quot;colab-df-container\&quot;">\n",
+              "      <div>\n",
+              "\n",
+              "\n",
+              "  \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "  \n",
+              "  \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "  \n",
+              "<table border=3D"\&quot;1\&quot;" class=3D"\&quot;dataframe\=
+&quot;"><thead><tr style=3D"\&quot;text-align:" right;\"=3D""><th></th><th>=
+summary</th><th>PassengerId</th><th>Survived</th><th>Pclass</th><th>Name</t=
+h><th>Sex</th><th>Age</th><th>SibSp</th><th>Parch</th><th>Ticket</th><th>Fa=
+re</th><th>Cabin</th><th>Embarked</th></tr></thead><tbody><tr><th>0</th><td=
+>count</td><td>891</td><td>891</td><td>891</td><td>891</td><td>891</td><td>=
+714</td><td>891</td><td>891</td><td>891</td><td>891</td><td>204</td><td>889=
+</td></tr><tr><th>1</th><td>mean</td><td>446.0</td><td>0.3838383838383838</=
+td><td>2.308641975308642</td><td>None</td><td>None</td><td>29.6991176470588=
+2</td><td>0.5230078563411896</td><td>0.38159371492704824</td><td>260318.549=
+16792738</td><td>32.2042079685746</td><td>None</td><td>None</td></tr><tr><t=
+h>2</th><td>stddev</td><td>257.3538420152301</td><td>0.48659245426485753</t=
+d><td>0.8360712409770491</td><td>None</td><td>None</td><td>14.5264973323340=
+35</td><td>1.1027434322934315</td><td>0.8060572211299488</td><td>471609.268=
+68834975</td><td>49.69342859718089</td><td>None</td><td>None</td></tr><tr><=
+th>3</th><td>min</td><td>1</td><td>0</td><td>1</td><td>\"Andersson, Mr. Aug=
+ust Edvard (\"\"Wennerstrom\"\")\"</td><td>female</td><td>0.42</td><td>0</t=
+d><td>0</td><td>110152</td><td>0.0</td><td>A10</td><td>C</td></tr><tr><th>4=
+</th><td>max</td><td>891</td><td>1</td><td>3</td><td>van Melkebeke, Mr. Phi=
+lemon</td><td>male</td><td>80.0</td><td>8</td><td>6</td><td>WE/P 5735</td><=
+td>512.3292</td><td>T</td><td>S</td></tr></tbody></table>\n",
+              "</div>\n",
+              "      <button class=3D"\&quot;colab-df-convert\&quot;" "=3D"=
+" title=3D"\&quot;Convert" this=3D"" dataframe=3D"" to=3D"" an=3D"" interac=
+tive=3D"" table.\"\n",=3D"" style=3D"\&quot;display:none;\&quot;">\n",
+              "        \n",
+              "  <svg xmlns=3D"\&quot;http://www.w3.org/2000/svg\&quot;" he=
+ight=3D"\&quot;24px\&quot;viewBox=3D\&quot;0" 0=3D"" 24=3D"" 24\"\n",=3D"" =
+"=3D"" width=3D"\&quot;24px\&quot;">\n",
+              "    <path d=3D"\&quot;M0" 0h24v24h0v0z\"=3D"" fill=3D"\&quot=
+;none\&quot;/">\n",
+              "    <path d=3D"\&quot;M18.56" 5.44l.94=3D"" 2.06.94-2.06=3D"=
+" 2.06-.94-2.06-.94-.94-2.06-.94=3D"" 2.06-2.06.94zm-11=3D"" 1l8.5=3D"" 8.5=
+l.94-2.06=3D"" 2.06-.94-2.06-.94l8.5=3D"" 2.5l-.94=3D"" 2.06-2.06.94zm10=3D=
+"" 10l.94=3D"" 2.06-2.06.94z\"=3D""></path><path d=3D"\&quot;M17.41" 7.96l-=
+1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52=3D"" 0-1.04.2-1.43.59l10.3=3D"" 9.45l=
+-7.72=3D"" 7.72c-.78.78-.78=3D"" 2.05=3D"" 0=3D"" 2.83l4=3D"" 21.41c.39.39.=
+9.59=3D"" 1.41.59.51=3D"" 1.02-.2=3D"" 1.41-.59l7.78-7.78=3D"" 2.81-2.81c.8=
+-.78.8-2.07=3D"" 0-2.86zm5.41=3D"" 20l4=3D"" 18.59l7.72-7.72=3D"" 1.47=3D""=
+ 1.35l5.41=3D"" 20z\"=3D""></path>\n",
+              "  </path></svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  \n",
+              "\n",
+              "      \n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 22
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# On r=C3=A9cup=C3=A8re bien un dataframe pandas\n",
+        "type(titanic_ddf.describe().toPandas())"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "jsz0XfO9osrm",
+        "outputId": "df07bef5-f010-434c-fcc2-529bd92d2208"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "pandas.core.frame.DataFrame"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 24
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# --- Spark ------------&gt;..--------------Python/pandas---------=
+--&gt;\n",
+        "titanic_ddf.describe().toPandas().set_index('summary').transpose()=
+"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 487
+        },
+        "id": "G6Soule2o81m",
+        "outputId": "c7fb1275-0473-4e19-eaa9-f51a353f04b0"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "summary     count                 mean               stddev =
+ \\\n",
+              "PassengerId   891                446.0    257.3538420152301 =
+  \n",
+              "Survived      891   0.3838383838383838  0.48659245426485753 =
+  \n",
+              "Pclass        891    2.308641975308642   0.8360712409770491 =
+  \n",
+              "Name          891                 None                 None =
+  \n",
+              "Sex           891                 None                 None =
+  \n",
+              "Age           714    29.69911764705882   14.526497332334035 =
+  \n",
+              "SibSp         891   0.5230078563411896   1.1027434322934315 =
+  \n",
+              "Parch         891  0.38159371492704824   0.8060572211299488 =
+  \n",
+              "Ticket        891   260318.54916792738   471609.26868834975 =
+  \n",
+              "Fare          891     32.2042079685746    49.69342859718089 =
+  \n",
+              "Cabin         204                 None                 None =
+  \n",
+              "Embarked      889                 None                 None =
+  \n",
+              "\n",
+              "summary                                                   mi=
+n  \\\n",
+              "PassengerId                                                 =
+1   \n",
+              "Survived                                                    =
+0   \n",
+              "Pclass                                                      =
+1   \n",
+              "Name         \"Andersson, Mr. August Edvard (\"\"Wennerstrom=
+\"\")\"   \n",
+              "Sex                                                    femal=
+e   \n",
+              "Age                                                      0.4=
+2   \n",
+              "SibSp                                                       =
+0   \n",
+              "Parch                                                       =
+0   \n",
+              "Ticket                                                 11015=
+2   \n",
+              "Fare                                                      0.=
+0   \n",
+              "Cabin                                                     A1=
+0   \n",
+              "Embarked                                                    =
+C   \n",
+              "\n",
+              "summary                              max  \n",
+              "PassengerId                          891  \n",
+              "Survived                               1  \n",
+              "Pclass                                 3  \n",
+              "Name         van Melkebeke, Mr. Philemon  \n",
+              "Sex                                 male  \n",
+              "Age                                 80.0  \n",
+              "SibSp                                  8  \n",
+              "Parch                                  6  \n",
+              "Ticket                         WE/P 5735  \n",
+              "Fare                            512.3292  \n",
+              "Cabin                                  T  \n",
+              "Embarked                               S  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=3D"\&quot;df-d572c625-9dce-4f7f-a697-d3f9c74e9d13\=
+&quot;">\n",
+              "    <div class=3D"\&quot;colab-df-container\&quot;">\n",
+              "      <div>\n",
+              "\n",
+              "\n",
+              "  \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "  \n",
+              "  \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "  \n",
+              "<table border=3D"\&quot;1\&quot;" class=3D"\&quot;dataframe\=
+&quot;"><thead><tr style=3D"\&quot;text-align:" right;\"=3D""><th>summary</=
+th><th>count</th><th>mean</th><th>stddev</th><th>min</th><th>max</th></tr><=
+/thead><tbody><tr><th>PassengerId</th><td>891</td><td>446.0</td><td>257.353=
+8420152301</td><td>1</td><td>891</td></tr><tr><th>Survived</th><td>891</td>=
+<td>0.3838383838383838</td><td>0.48659245426485753</td><td>0</td><td>1</td>=
+</tr><tr><th>Pclass</th><td>891</td><td>2.308641975308642</td><td>0.8360712=
+409770491</td><td>1</td><td>3</td></tr><tr><th>Name</th><td>891</td><td>Non=
+e</td><td>None</td><td>\"Andersson, Mr. August Edvard (\"\"Wennerstrom\"\")=
+\"</td><td>van Melkebeke, Mr. Philemon</td></tr><tr><th>Sex</th><td>891</td=
+><td>None</td><td>None</td><td>female</td><td>male</td></tr><tr><th>Age</th=
+><td>714</td><td>29.69911764705882</td><td>14.526497332334035</td><td>0.42<=
+/td><td>80.0</td></tr><tr><th>SibSp</th><td>891</td><td>0.5230078563411896<=
+/td><td>1.1027434322934315</td><td>0</td><td>8</td></tr><tr><th>Parch</th><=
+td>891</td><td>0.38159371492704824</td><td>0.8060572211299488</td><td>0</td=
+><td>6</td></tr><tr><th>Ticket</th><td>891</td><td>260318.54916792738</td><=
+td>471609.26868834975</td><td>110152</td><td>WE/P 5735</td></tr><tr><th>Far=
+e</th><td>891</td><td>32.2042079685746</td><td>49.69342859718089</td><td>0.=
+0</td><td>512.3292</td></tr><tr><th>Cabin</th><td>204</td><td>None</td><td>=
+None</td><td>A10</td><td>T</td></tr><tr><th>Embarked</th><td>889</td><td>No=
+ne</td><td>None</td><td>C</td><td>S</td></tr></tbody></table>\n",
+              "</div>\n",
+              "      <button class=3D"\&quot;colab-df-convert\&quot;" "=3D"=
+" title=3D"\&quot;Convert" this=3D"" dataframe=3D"" to=3D"" an=3D"" interac=
+tive=3D"" table.\"\n",=3D"" style=3D"\&quot;display:none;\&quot;">\n",
+              "        \n",
+              "  <svg xmlns=3D"\&quot;http://www.w3.org/2000/svg\&quot;" he=
+ight=3D"\&quot;24px\&quot;viewBox=3D\&quot;0" 0=3D"" 24=3D"" 24\"\n",=3D"" =
+"=3D"" width=3D"\&quot;24px\&quot;">\n",
+              "    <path d=3D"\&quot;M0" 0h24v24h0v0z\"=3D"" fill=3D"\&quot=
+;none\&quot;/">\n",
+              "    <path d=3D"\&quot;M18.56" 5.44l.94=3D"" 2.06.94-2.06=3D"=
+" 2.06-.94-2.06-.94-.94-2.06-.94=3D"" 2.06-2.06.94zm-11=3D"" 1l8.5=3D"" 8.5=
+l.94-2.06=3D"" 2.06-.94-2.06-.94l8.5=3D"" 2.5l-.94=3D"" 2.06-2.06.94zm10=3D=
+"" 10l.94=3D"" 2.06-2.06.94z\"=3D""></path><path d=3D"\&quot;M17.41" 7.96l-=
+1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52=3D"" 0-1.04.2-1.43.59l10.3=3D"" 9.45l=
+-7.72=3D"" 7.72c-.78.78-.78=3D"" 2.05=3D"" 0=3D"" 2.83l4=3D"" 21.41c.39.39.=
+9.59=3D"" 1.41.59.51=3D"" 1.02-.2=3D"" 1.41-.59l7.78-7.78=3D"" 2.81-2.81c.8=
+-.78.8-2.07=3D"" 0-2.86zm5.41=3D"" 20l4=3D"" 18.59l7.72-7.72=3D"" 1.47=3D""=
+ 1.35l5.41=3D"" 20z\"=3D""></path>\n",
+              "  </path></svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  \n",
+              "\n",
+              "      \n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 25
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Pas beau du tout =F0=9F=92=A3"
+      ],
+      "metadata": {
+        "id": "GmIfLA8LrLIr"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_df =3D titanic_ddf.toPandas()"
+      ],
+      "metadata": {
+        "id": "IO4hFa3qrGXU"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Filtrer les lignes\n",
+        "\n",
+        "Des instructions Spark."
+      ],
+      "metadata": {
+        "id": "bhH2c6hgqUMB"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Nombre de passagers mineurs\n",
+        "titanic_ddf.where('Age &lt; 18').count()\n",
+        "\n",
+        "# En pandas : titanic_df.query('Age &lt; 18')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "OwpP7Luyp11q",
+        "outputId": "dcc062fe-b6a7-4084-eddc-f2fc2711df5b"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "113"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 28
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf.where('Age &lt; 18').count() / titanic_ddf.count()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "mUfEnSSnqjPs",
+        "outputId": "9e16f722-44af-41fc-b480-e475a003633c"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0.12682379349046016"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 27
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf[titanic_ddf['Age'] &lt; 18].count()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "WGuzbaDfqsgs",
+        "outputId": "f5eba864-7756-43b6-cfea-eaf3b36822a8"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "113"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 29
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Utilisation de l'op=C3=A9rateur col()"
+      ],
+      "metadata": {
+        "id": "_BGPep6isNX2"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# On aliase en F les fonctions Spark SQL\n",
+        "import pyspark.sql.functions as F"
+      ],
+      "metadata": {
+        "id": "TDgHDHhlr-Qv"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Comparer avec titanic_ddf[titanic_ddf['Age'] &lt; 18].count()\n"=
+,
+        "\n",
+        "# F.col(C) --&gt; utiliser la colonne C du dataframe sur lequel l'=
+instruction s'applique\n",
+        "# sans avoir =C3=A0 indiquer le nom du dataframe --&gt; =C3=A9crit=
+ure plus g=C3=A9n=C3=A9rique\n",
+        "\n",
+        "titanic_ddf[F.col('Age') &lt; 18].count()\n",
+        "\n",
+        "# En pandas : titanic_df[lambda _df: _df['Age'] &lt; 18]"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "gnqEV_qhsVF-",
+        "outputId": "8134632d-8e56-440a-a1ee-05c62d590cb5"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "113"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 37
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Attention en =F0=9F=90=BC"
+      ],
+      "metadata": {
+        "id": "C3kjWFAgthS2"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# A rapprocher en pandas de :\n",
+        "titanic_df[titanic_df['Age'] &lt; 18]\n",
+        "\n",
+        "# ou, bien mieux d'un point de vue g=C3=A9n=C3=A9ricit=C3=A9 :\n",
+        "titanic_df[lambda _df: _df['Age'] &lt; 18]"
+      ],
+      "metadata": {
+        "id": "jswC2cMXtP7q"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## S=C3=A9lectionner des colonnes"
+      ],
+      "metadata": {
+        "id": "VJkmpPGHu6Gf"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf.select('Survived', 'Age', 'Pclass').show(5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ZkjjiHVrsijd",
+        "outputId": "bdd874a7-0df8-4b05-b372-95a81cd1a086"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+--------+----+------+\n",
+            "|Survived| Age|Pclass|\n",
+            "+--------+----+------+\n",
+            "|       0|22.0|     3|\n",
+            "|       1|38.0|     1|\n",
+            "|       1|26.0|     3|\n",
+            "|       1|35.0|     1|\n",
+            "|       0|35.0|     3|\n",
+            "+--------+----+------+\n",
+            "only showing top 5 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Supprimer une colonne"
+      ],
+      "metadata": {
+        "id": "LXeSEAZ_vVTv"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf.drop('Ticket').show(5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "KminLINKvVA3",
+        "outputId": "42fe5f25-7bc3-4d34-e303-32e3c985cfa4"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+-------+-----+--------+\n",
+            "|PassengerId|Survived|Pclass|                Name|   Sex| Age|=
+SibSp|Parch|   Fare|Cabin|Embarked|\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+-------+-----+--------+\n",
+            "|          1|       0|     3|Braund, Mr. Owen ...|  male|22.0|=
+    1|    0|   7.25| null|       S|\n",
+            "|          2|       1|     1|Cumings, Mrs. Joh...|female|38.0|=
+    1|    0|71.2833|  C85|       C|\n",
+            "|          3|       1|     3|Heikkinen, Miss. ...|female|26.0|=
+    0|    0|  7.925| null|       S|\n",
+            "|          4|       1|     1|Futrelle, Mrs. Ja...|female|35.0|=
+    1|    0|   53.1| C123|       S|\n",
+            "|          5|       0|     3|Allen, Mr. Willia...|  male|35.0|=
+    0|    0|   8.05| null|       S|\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+-------+-----+--------+\n",
+            "only showing top 5 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# On cr=C3=A9=C3=A9 un nouveau df avec le r=C3=A9sultat\n",
+        "withoutticket_ddf =3D titanic_ddf.drop('Ticket')\n",
+        "\n",
+        "# Ou pour faire l'op=C3=A9ration dans le df d'origine\n",
+        "titanic_ddf =3D titanic_ddf.drop('Ticket')"
+      ],
+      "metadata": {
+        "id": "bosdAieJvISh"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Renommer les colonnes"
+      ],
+      "metadata": {
+        "id": "PC8XOvRtwDkR"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf.withColumnRenamed('Ticket', 'Place').show(5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ALtQAL-Xvt2A",
+        "outputId": "627bf290-44f6-4a72-eb71-f4aec16f4f9c"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+\n",
+            "|PassengerId|Survived|Pclass|                Name|   Sex| Age|=
+SibSp|Parch|           Place|   Fare|Cabin|Embarked|\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+\n",
+            "|          1|       0|     3|Braund, Mr. Owen ...|  male|22.0|=
+    1|    0|       A/5 21171|   7.25| null|       S|\n",
+            "|          2|       1|     1|Cumings, Mrs. Joh...|female|38.0|=
+    1|    0|        PC 17599|71.2833|  C85|       C|\n",
+            "|          3|       1|     3|Heikkinen, Miss. ...|female|26.0|=
+    0|    0|STON/O2. 3101282|  7.925| null|       S|\n",
+            "|          4|       1|     1|Futrelle, Mrs. Ja...|female|35.0|=
+    1|    0|          113803|   53.1| C123|       S|\n",
+            "|          5|       0|     3|Allen, Mr. Willia...|  male|35.0|=
+    0|    0|          373450|   8.05| null|       S|\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+\n",
+            "only showing top 5 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Calculer une nouvelle colonne"
+      ],
+      "metadata": {
+        "id": "w8ULtKDzwaD4"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf.withColumn('Accompagnants', F.col('SibSp') + F.col('Pa=
+rch')).show(5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "chzBnkB5wOFg",
+        "outputId": "95a682b3-0d47-467a-9ca5-b42bc26665ee"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+-------------+\n",
+            "|PassengerId|Survived|Pclass|                Name|   Sex| Age|=
+SibSp|Parch|          Ticket|   Fare|Cabin|Embarked|Accompagnants|\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+-------------+\n",
+            "|          1|       0|     3|Braund, Mr. Owen ...|  male|22.0|=
+    1|    0|       A/5 21171|   7.25| null|       S|            1|\n",
+            "|          2|       1|     1|Cumings, Mrs. Joh...|female|38.0|=
+    1|    0|        PC 17599|71.2833|  C85|       C|            1|\n",
+            "|          3|       1|     3|Heikkinen, Miss. ...|female|26.0|=
+    0|    0|STON/O2. 3101282|  7.925| null|       S|            0|\n",
+            "|          4|       1|     1|Futrelle, Mrs. Ja...|female|35.0|=
+    1|    0|          113803|   53.1| C123|       S|            1|\n",
+            "|          5|       0|     3|Allen, Mr. Willia...|  male|35.0|=
+    0|    0|          373450|   8.05| null|       S|            0|\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+-------------+\n",
+            "only showing top 5 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Malheureusement, pour des raisons techniques, on ne peut pas affec=
+ter une colonne directement"
+      ],
+      "metadata": {
+        "id": "0KqBVkGWxHOY"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf['Accompagnants'] =3D titanic_ddf['SibSp'] + titanic_dd=
+f['Parch']"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 167
+        },
+        "id": "hsWddQEmww7R",
+        "outputId": "43842dad-641e-4789-9995-fe1e6978bf13"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "TypeError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m--------------------------------------------------=
+-------------------------\u001b[0m",
+            "\u001b[0;31mTypeError\u001b[0m                                =
+ Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-44-b62100a674d8>\u001b[0m in \u001b=
+[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----&gt; 1\u001b[0;31m \u0=
+01b[0mtitanic_ddf\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'Accompagnants'=
+\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m=3D\u001b[0m \u001b[0mtitanic_d=
+df\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'SibSp'\u001b[0m\u001b[0;34m]\=
+u001b[0m \u001b[0;34m+\u001b[0m \u001b[0mtitanic_ddf\u001b[0m\u001b[0;34m[\=
+u001b[0m\u001b[0;34m'Parch'\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001=
+b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;31mTypeError\u001b[0m: 'DataFrame' object does not su=
+pport item assignment"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Utiliser F.expr() pour simplifier l'=C3=A9criture"
+      ],
+      "metadata": {
+        "id": "qtrGVZMfx_j0"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf.withColumn('Accompagnants', F.expr('SibSp + Parch')).s=
+how(5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "lQEOF8BpxCQB",
+        "outputId": "11b4fcf1-afa0-42f0-87af-5a573b901be5"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+-------------+\n",
+            "|PassengerId|Survived|Pclass|                Name|   Sex| Age|=
+SibSp|Parch|          Ticket|   Fare|Cabin|Embarked|Accompagnants|\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+-------------+\n",
+            "|          1|       0|     3|Braund, Mr. Owen ...|  male|22.0|=
+    1|    0|       A/5 21171|   7.25| null|       S|            1|\n",
+            "|          2|       1|     1|Cumings, Mrs. Joh...|female|38.0|=
+    1|    0|        PC 17599|71.2833|  C85|       C|            1|\n",
+            "|          3|       1|     3|Heikkinen, Miss. ...|female|26.0|=
+    0|    0|STON/O2. 3101282|  7.925| null|       S|            0|\n",
+            "|          4|       1|     1|Futrelle, Mrs. Ja...|female|35.0|=
+    1|    0|          113803|   53.1| C123|       S|            1|\n",
+            "|          5|       0|     3|Allen, Mr. Willia...|  male|35.0|=
+    0|    0|          373450|   8.05| null|       S|            0|\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+-------------+\n",
+            "only showing top 5 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# On peut utiliser toutes les fonctions disponibles dans Spark\n",
+        "# Ici par exemple : https://spark.apache.org/docs/latest/api/pytho=
+n/reference/pyspark.sql/functions.html\n",
+        "\n",
+        "titanic_ddf.withColumn('Accompagnants', F.expr('SibSp + cos(Parch)=
+')).show(5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-gJ7PiQnx-T0",
+        "outputId": "2012b489-dd79-486e-951d-b3a1fdd29d7e"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+-------------+\n",
+            "|PassengerId|Survived|Pclass|                Name|   Sex| Age|=
+SibSp|Parch|          Ticket|   Fare|Cabin|Embarked|Accompagnants|\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+-------------+\n",
+            "|          1|       0|     3|Braund, Mr. Owen ...|  male|22.0|=
+    1|    0|       A/5 21171|   7.25| null|       S|          2.0|\n",
+            "|          2|       1|     1|Cumings, Mrs. Joh...|female|38.0|=
+    1|    0|        PC 17599|71.2833|  C85|       C|          2.0|\n",
+            "|          3|       1|     3|Heikkinen, Miss. ...|female|26.0|=
+    0|    0|STON/O2. 3101282|  7.925| null|       S|          1.0|\n",
+            "|          4|       1|     1|Futrelle, Mrs. Ja...|female|35.0|=
+    1|    0|          113803|   53.1| C123|       S|          2.0|\n",
+            "|          5|       0|     3|Allen, Mr. Willia...|  male|35.0|=
+    0|    0|          373450|   8.05| null|       S|          1.0|\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+-------------+\n",
+            "only showing top 5 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Regrouper et compter"
+      ],
+      "metadata": {
+        "id": "yUCeX8o-ym45"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf.groupby('Pclass').agg(F.mean('Survived')).show()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "QS1ixQLsyKyV",
+        "outputId": "c9c21575-1207-4c77-863b-a3425bf300c5"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+------+-------------------+\n",
+            "|Pclass|      avg(Survived)|\n",
+            "+------+-------------------+\n",
+            "|     1| 0.6296296296296297|\n",
+            "|     3|0.24236252545824846|\n",
+            "|     2|0.47282608695652173|\n",
+            "+------+-------------------+\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf.groupby('Pclass').agg(F.mean('Survived').alias('Taux d=
+e survie')).show()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "s3a8yJP9y6zK",
+        "outputId": "b3875a3e-9f7b-4515-a5f7-3cb066211f93"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+------+-------------------+\n",
+            "|Pclass|     Taux de survie|\n",
+            "+------+-------------------+\n",
+            "|     1| 0.6296296296296297|\n",
+            "|     3|0.24236252545824846|\n",
+            "|     2|0.47282608695652173|\n",
+            "+------+-------------------+\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# On regroupe par Pclass les individus\n",
+        "# Et sur chaque groupe, on calcule la moyenne de Survived et les e=
+ffectifs\n",
+        "\n",
+        "titanic_ddf.groupby('Pclass').agg(F.mean('Survived').alias('Taux d=
+e survie'),\n",
+        "                                  F.count('Survived').alias('Effec=
+tifs'),\n",
+        "                                  ).show()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "C-wVlCdFzYVa",
+        "outputId": "65fad5c7-68c5-4e11-e4b7-43f39ba4a410"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+------+-------------------+---------+\n",
+            "|Pclass|     Taux de survie|Effectifs|\n",
+            "+------+-------------------+---------+\n",
+            "|     1| 0.6296296296296297|      216|\n",
+            "|     3|0.24236252545824846|      491|\n",
+            "|     2|0.47282608695652173|      184|\n",
+            "+------+-------------------+---------+\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Le truc de la parenth=C3=A8se (_Parenthesis Trick_) =F0=9F=A7=
+=99"
+      ],
+      "metadata": {
+        "id": "Fzh0f-zy0PWT"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "(titanic_ddf\n",
+        " .groupby('Pclass')\n",
+        " .agg(\n",
+        "     F.mean('Survived').alias('Taux de survie'),\n",
+        "     F.count('Survived').alias('Effectif'),\n",
+        "     F.avg('Age').alias('Age moyen'),\n",
+        " )\n",
+        ").show()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "pM_CKttlztIc",
+        "outputId": "d79e0a2c-a3ec-4a3e-bdb6-815b04d6ffc8"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+------+-------------------+--------+------------------+\n",
+            "|Pclass|     Taux de survie|Effectif|         Age moyen|\n",
+            "+------+-------------------+--------+------------------+\n",
+            "|     1| 0.6296296296296297|     216|38.233440860215055|\n",
+            "|     3|0.24236252545824846|     491| 25.14061971830986|\n",
+            "|     2|0.47282608695652173|     184| 29.87763005780347|\n",
+            "+------+-------------------+--------+------------------+\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "(titanic_ddf\n",
+        " # Regroupement par classe\n",
+        " .groupby('Pclass')\n",
+        "\n",
+        " # Calcul d'agr=C3=A9gats\n",
+        " .agg(\n",
+        "     F.mean('Survived').alias('Taux de survie'),\n",
+        "     F.count('Survived').alias('Effectif'),\n",
+        "     F.avg('Age').alias('Age moyen'),\n",
+        " )\n",
+        ").show()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "bTCWt6IC06Lr",
+        "outputId": "c4d8b9a4-0f02-4196-e2ed-15c18c17010f"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+------+-------------------+--------+------------------+\n",
+            "|Pclass|     Taux de survie|Effectif|         Age moyen|\n",
+            "+------+-------------------+--------+------------------+\n",
+            "|     1| 0.6296296296296297|     216|38.233440860215055|\n",
+            "|     3|0.24236252545824846|     491| 25.14061971830986|\n",
+            "|     2|0.47282608695652173|     184| 29.87763005780347|\n",
+            "+------+-------------------+--------+------------------+\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Fonctionne aussi en =F0=9F=90=BC ! \n",
+        "\n",
+        "On parle parfois de _Modern pandas_."
+      ],
+      "metadata": {
+        "id": "77qmnt5w1dQd"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "(titanic_df\n",
+        " .groupby('Pclass')\n",
+        " .agg(\n",
+        "     taux_survie=3D('Survived', 'mean'),\n",
+        "     effectif=3D('Survived', 'count'),\n",
+        "     #age_moyen=3D('Age', 'mean'),\n",
+        " )\n",
+        ")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 175
+        },
+        "id": "shEFdA0U1Y2s",
+        "outputId": "dd3b4198-a52b-434f-df2e-3d67721fcd2c"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "        taux_survie  effectif\n",
+              "Pclass                       \n",
+              "1          0.629630       216\n",
+              "2          0.472826       184\n",
+              "3          0.242363       491"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=3D"\&quot;df-f701a203-6dee-4612-842c-c2a02b97ffaf\=
+&quot;">\n",
+              "    <div class=3D"\&quot;colab-df-container\&quot;">\n",
+              "      <div>\n",
+              "\n",
+              "\n",
+              "  \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "  \n",
+              "  \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "  \n",
+              "<table border=3D"\&quot;1\&quot;" class=3D"\&quot;dataframe\=
+&quot;"><thead><tr style=3D"\&quot;text-align:" right;\"=3D""><th></th><th>=
+taux_survie</th><th>effectif</th></tr><tr><th>Pclass</th><th></th><th></th>=
+</tr></thead><tbody><tr><th>1</th><td>0.629630</td><td>216</td></tr><tr><th=
+>2</th><td>0.472826</td><td>184</td></tr><tr><th>3</th><td>0.242363</td><td=
+>491</td></tr></tbody></table>\n",
+              "</div>\n",
+              "      <button class=3D"\&quot;colab-df-convert\&quot;" "=3D"=
+" title=3D"\&quot;Convert" this=3D"" dataframe=3D"" to=3D"" an=3D"" interac=
+tive=3D"" table.\"\n",=3D"" style=3D"\&quot;display:none;\&quot;">\n",
+              "        \n",
+              "  <svg xmlns=3D"\&quot;http://www.w3.org/2000/svg\&quot;" he=
+ight=3D"\&quot;24px\&quot;viewBox=3D\&quot;0" 0=3D"" 24=3D"" 24\"\n",=3D"" =
+"=3D"" width=3D"\&quot;24px\&quot;">\n",
+              "    <path d=3D"\&quot;M0" 0h24v24h0v0z\"=3D"" fill=3D"\&quot=
+;none\&quot;/">\n",
+              "    <path d=3D"\&quot;M18.56" 5.44l.94=3D"" 2.06.94-2.06=3D"=
+" 2.06-.94-2.06-.94-.94-2.06-.94=3D"" 2.06-2.06.94zm-11=3D"" 1l8.5=3D"" 8.5=
+l.94-2.06=3D"" 2.06-.94-2.06-.94l8.5=3D"" 2.5l-.94=3D"" 2.06-2.06.94zm10=3D=
+"" 10l.94=3D"" 2.06-2.06.94z\"=3D""></path><path d=3D"\&quot;M17.41" 7.96l-=
+1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52=3D"" 0-1.04.2-1.43.59l10.3=3D"" 9.45l=
+-7.72=3D"" 7.72c-.78.78-.78=3D"" 2.05=3D"" 0=3D"" 2.83l4=3D"" 21.41c.39.39.=
+9.59=3D"" 1.41.59.51=3D"" 1.02-.2=3D"" 1.41-.59l7.78-7.78=3D"" 2.81-2.81c.8=
+-.78.8-2.07=3D"" 0-2.86zm5.41=3D"" 20l4=3D"" 18.59l7.72-7.72=3D"" 1.47=3D""=
+ 1.35l5.41=3D"" 20z\"=3D""></path>\n",
+              "  </path></svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  \n",
+              "\n",
+              "      \n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 62
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Utilisation du SQL"
+      ],
+      "metadata": {
+        "id": "53FJzA2f3FNX"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Une requ=C3=AAte SQL type\n",
+        "\"\"\"\n",
+        "SELECT colonne, ...., colonne\n",
+        "FROM table\n",
+        "WHERE condition\n",
+        "GROUP BY\n",
+        "ORDER BY\n",
+        "\"\"\""
+      ],
+      "metadata": {
+        "id": "jyNHkE3k2KE-"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# On associe le dataframe Spark titanic_ddf au nom de table SQL ti=
+tanic\n",
+        "# Cela cr=C3=A9e une sorte d'alias pour utiliser titanic_ddf dans =
+des requ=C3=AAtes SQL\n",
+        "# 1 dataframe =3D=3D 1 table SQL\n",
+        "\n",
+        "titanic_ddf.createOrReplaceTempView('titanic')"
+      ],
+      "metadata": {
+        "id": "JEAnN4dd3Wjz"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "spark.sql(\"\"\"\n",
+        "SELECT *\n",
+        "FROM titanic\n",
+        "\"\"\").show(5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "2oiqvvar39s_",
+        "outputId": "d534921d-38b9-422a-e206-a0147bcb8a80"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+\n",
+            "|PassengerId|Survived|Pclass|                Name|   Sex| Age|=
+SibSp|Parch|          Ticket|   Fare|Cabin|Embarked|\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+\n",
+            "|          1|       0|     3|Braund, Mr. Owen ...|  male|22.0|=
+    1|    0|       A/5 21171|   7.25| null|       S|\n",
+            "|          2|       1|     1|Cumings, Mrs. Joh...|female|38.0|=
+    1|    0|        PC 17599|71.2833|  C85|       C|\n",
+            "|          3|       1|     3|Heikkinen, Miss. ...|female|26.0|=
+    0|    0|STON/O2. 3101282|  7.925| null|       S|\n",
+            "|          4|       1|     1|Futrelle, Mrs. Ja...|female|35.0|=
+    1|    0|          113803|   53.1| C123|       S|\n",
+            "|          5|       0|     3|Allen, Mr. Willia...|  male|35.0|=
+    0|    0|          373450|   8.05| null|       S|\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+----------------+-------+-----+--------+\n",
+            "only showing top 5 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# titanic_ddf.where('Age &lt; 18').count()\n",
+        "\n",
+        "spark.sql(\"\"\"\n",
+        "SELECT count(*) as nb_mineurs\n",
+        "FROM titanic\n",
+        "WHERE age &lt; 18\n",
+        "\"\"\").show(5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ex5-WTxV4mvT",
+        "outputId": "6fb21b59-71db-46e7-aa9c-767d00b5f0e9"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+----------+\n",
+            "|nb_mineurs|\n",
+            "+----------+\n",
+            "|       113|\n",
+            "+----------+\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Notation fonctionnelle\n",
+        "# (titanic_ddf\n",
+        "#  .groupby('Pclass')\n",
+        "#  .agg(\n",
+        "#      F.mean('Survived').alias('Taux de survie'),\n",
+        "#      F.count('Survived').alias('Effectif'),\n",
+        "#      F.avg('Age').alias('Age moyen'),\n",
+        "#  )\n",
+        "# ).show()\n",
+        "\n",
+        "# Notation \"relationnelle\"\n",
+        "spark.sql(\"\"\"\n",
+        "SELECT\n",
+        "  Pclass,\n",
+        "  avg(Survived) as Taux_survie,\n",
+        "  count(Survived) as Effectif,\n",
+        "  avg(Age) as Age_moyen\n",
+        "FROM titanic\n",
+        "GROUP BY Pclass\n",
+        "\"\"\").show()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "9Prrz8qcL5f5",
+        "outputId": "a9a22496-b6aa-4703-c73a-89286f1aaa75"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+------+-------------------+--------+------------------+\n",
+            "|Pclass|        Taux_survie|Effectif|         Age_moyen|\n",
+            "+------+-------------------+--------+------------------+\n",
+            "|     1| 0.6296296296296297|     216|38.233440860215055|\n",
+            "|     3|0.24236252545824846|     491| 25.14061971830986|\n",
+            "|     2|0.47282608695652173|     184| 29.87763005780347|\n",
+            "+------+-------------------+--------+------------------+\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### M=C3=A9lange du SQL et du fonctionnel"
+      ],
+      "metadata": {
+        "id": "iEwVG-OeTBi4"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "spark.sql(\"\"\"\n",
+        "SELECT\n",
+        "  Pclass,\n",
+        "  avg(Survived) as Taux_survie,\n",
+        "  count(Survived) as Effectif,\n",
+        "  avg(Age) as Age_moyen\n",
+        "FROM titanic\n",
+        "GROUP BY Pclass\n",
+        "\"\"\").drop('Age_moyen').show()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "sC4_6BypRr1A",
+        "outputId": "84c9141f-ce5c-489c-9f50-5ec167c9c8f1"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+------+-------------------+--------+\n",
+            "|Pclass|        Taux_survie|Effectif|\n",
+            "+------+-------------------+--------+\n",
+            "|     1| 0.6296296296296297|     216|\n",
+            "|     3|0.24236252545824846|     491|\n",
+            "|     2|0.47282608695652173|     184|\n",
+            "+------+-------------------+--------+\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "spark.sql(\"\"\"\n",
+        "SELECT\n",
+        "  Pclass,\n",
+        "  avg(Survived) as Taux_survie,\n",
+        "  count(Survived) as Effectif,\n",
+        "  avg(Age) as Age_moyen\n",
+        "FROM titanic\n",
+        "GROUP BY Pclass\n",
+        "\"\"\").orderBy('Pclass').show()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "NAiwNSjsU59C",
+        "outputId": "5950980f-4e66-42da-f1ba-b1423e7009f4"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+------+-------------------+--------+------------------+\n",
+            "|Pclass|        Taux_survie|Effectif|         Age_moyen|\n",
+            "+------+-------------------+--------+------------------+\n",
+            "|     1| 0.6296296296296297|     216|38.233440860215055|\n",
+            "|     2|0.47282608695652173|     184| 29.87763005780347|\n",
+            "|     3|0.24236252545824846|     491| 25.14061971830986|\n",
+            "+------+-------------------+--------+------------------+\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "La requ=C3=AAte SQL est une cha=C3=AEne de caract=C3=A8res. Donc o=
+n peut ajouter des param=C3=A8tres."
+      ],
+      "metadata": {
+        "id": "iPhk4cl4TzcY"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "nom_taux_survie =3D 'Taux_de_survie'\n",
+        "\n",
+        "spark.sql(f\"\"\"\n",
+        "SELECT\n",
+        "  Pclass,\n",
+        "  avg(Survived) as {nom_taux_survie},\n",
+        "  count(Survived) as Effectif,\n",
+        "  avg(Age) as Age_moyen\n",
+        "FROM titanic\n",
+        "GROUP BY Pclass\n",
+        "ORDER BY Pclass\n",
+        "\"\"\").show()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "wSBkfRrUTIHA",
+        "outputId": "b5d3a077-7c90-4199-8adc-2dca2c9c87ba"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+------+-------------------+--------+------------------+\n",
+            "|Pclass|     Taux_de_survie|Effectif|         Age_moyen|\n",
+            "+------+-------------------+--------+------------------+\n",
+            "|     1| 0.6296296296296297|     216|38.233440860215055|\n",
+            "|     2|0.47282608695652173|     184| 29.87763005780347|\n",
+            "|     3|0.24236252545824846|     491| 25.14061971830986|\n",
+            "+------+-------------------+--------+------------------+\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Utilisation des fonctions analytiques"
+      ],
+      "metadata": {
+        "id": "4mf1XlWHVVdZ"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "spark.sql(\"\"\"\n",
+        "SELECT\n",
+        "  PassengerId,\n",
+        "  Age,\n",
+        "  Sex,\n",
+        "  AVG(Age) OVER (PARTITION BY Sex) as Age_moyen_sex\n",
+        "FROM titanic\n",
+        "ORDER BY PassengerId\n",
+        "\"\"\").show(5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "dF4ecRNYTvzD",
+        "outputId": "70dfce61-86c0-42e1-bf7d-be1f9b8ae350"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-----------+----+------+------------------+\n",
+            "|PassengerId| Age|   Sex|     Age_moyen_sex|\n",
+            "+-----------+----+------+------------------+\n",
+            "|          1|22.0|  male| 30.72664459161148|\n",
+            "|          2|38.0|female|27.915708812260537|\n",
+            "|          3|26.0|female|27.915708812260537|\n",
+            "|          4|35.0|female|27.915708812260537|\n",
+            "|          5|35.0|  male| 30.72664459161148|\n",
+            "+-----------+----+------+------------------+\n",
+            "only showing top 5 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Equivalent en =F0=9F=90=BC"
+      ],
+      "metadata": {
+        "id": "jRYBmZw7YKA6"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_df.merge(\n",
+        "    titanic_df.groupby('Sex').agg(Age_moyen_sex=3D('Age', 'mean'))=
+.reset_index(),\n",
+        "    on=3D'Sex'\n",
+        "    )[['PassengerId', 'Age', 'Sex', 'Age_moyen_sex']].sort_values(=
+'PassengerId').head(5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 206
+        },
+        "id": "sgfWHqHaWfl0",
+        "outputId": "c83e0339-1f38-41dd-fe7a-2c812a93fe9e"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     PassengerId   Age     Sex  Age_moyen_sex\n",
+              "0              1  22.0    male      30.726645\n",
+              "577            2  38.0  female      27.915709\n",
+              "578            3  26.0  female      27.915709\n",
+              "579            4  35.0  female      27.915709\n",
+              "1              5  35.0    male      30.726645"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=3D"\&quot;df-d43b8588-cbee-41ef-8b60-8155eb8bbe91\=
+&quot;">\n",
+              "    <div class=3D"\&quot;colab-df-container\&quot;">\n",
+              "      <div>\n",
+              "\n",
+              "\n",
+              "  \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "  \n",
+              "  \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "  \n",
+              "<table border=3D"\&quot;1\&quot;" class=3D"\&quot;dataframe\=
+&quot;"><thead><tr style=3D"\&quot;text-align:" right;\"=3D""><th></th><th>=
+PassengerId</th><th>Age</th><th>Sex</th><th>Age_moyen_sex</th></tr></thead>=
+<tbody><tr><th>0</th><td>1</td><td>22.0</td><td>male</td><td>30.726645</td>=
+</tr><tr><th>577</th><td>2</td><td>38.0</td><td>female</td><td>27.915709</t=
+d></tr><tr><th>578</th><td>3</td><td>26.0</td><td>female</td><td>27.915709<=
+/td></tr><tr><th>579</th><td>4</td><td>35.0</td><td>female</td><td>27.91570=
+9</td></tr><tr><th>1</th><td>5</td><td>35.0</td><td>male</td><td>30.726645<=
+/td></tr></tbody></table>\n",
+              "</div>\n",
+              "      <button class=3D"\&quot;colab-df-convert\&quot;" "=3D"=
+" title=3D"\&quot;Convert" this=3D"" dataframe=3D"" to=3D"" an=3D"" interac=
+tive=3D"" table.\"\n",=3D"" style=3D"\&quot;display:none;\&quot;">\n",
+              "        \n",
+              "  <svg xmlns=3D"\&quot;http://www.w3.org/2000/svg\&quot;" he=
+ight=3D"\&quot;24px\&quot;viewBox=3D\&quot;0" 0=3D"" 24=3D"" 24\"\n",=3D"" =
+"=3D"" width=3D"\&quot;24px\&quot;">\n",
+              "    <path d=3D"\&quot;M0" 0h24v24h0v0z\"=3D"" fill=3D"\&quot=
+;none\&quot;/">\n",
+              "    <path d=3D"\&quot;M18.56" 5.44l.94=3D"" 2.06.94-2.06=3D"=
+" 2.06-.94-2.06-.94-.94-2.06-.94=3D"" 2.06-2.06.94zm-11=3D"" 1l8.5=3D"" 8.5=
+l.94-2.06=3D"" 2.06-.94-2.06-.94l8.5=3D"" 2.5l-.94=3D"" 2.06-2.06.94zm10=3D=
+"" 10l.94=3D"" 2.06-2.06.94z\"=3D""></path><path d=3D"\&quot;M17.41" 7.96l-=
+1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52=3D"" 0-1.04.2-1.43.59l10.3=3D"" 9.45l=
+-7.72=3D"" 7.72c-.78.78-.78=3D"" 2.05=3D"" 0=3D"" 2.83l4=3D"" 21.41c.39.39.=
+9.59=3D"" 1.41.59.51=3D"" 1.02-.2=3D"" 1.41-.59l7.78-7.78=3D"" 2.81-2.81c.8=
+-.78.8-2.07=3D"" 0-2.86zm5.41=3D"" 20l4=3D"" 18.59l7.72-7.72=3D"" 1.47=3D""=
+ 1.35l5.41=3D"" 20z\"=3D""></path>\n",
+              "  </path></svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  \n",
+              "\n",
+              "      \n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 108
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Apprentissage (_Machine Learning_)"
+      ],
+      "metadata": {
+        "id": "l4OiHLTDgoxx"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf.columns"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "RvJN2FR4YG-0",
+        "outputId": "365b3bb5-09d3-4b2a-85d8-724131d443cc"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "['PassengerId',\n",
+              " 'Survived',\n",
+              " 'Pclass',\n",
+              " 'Name',\n",
+              " 'Sex',\n",
+              " 'Age',\n",
+              " 'SibSp',\n",
+              " 'Parch',\n",
+              " 'Ticket',\n",
+              " 'Fare',\n",
+              " 'Cabin',\n",
+              " 'Embarked']"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 10
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "spark.sql(\"\"\"\n",
+        "SELECT \n",
+        "  Embarked,\n",
+        "  AVG(Survived) as Survived,\n",
+        "  COUNT(Survived) as Effectif\n",
+        "FROM titanic\n",
+        "GROUP BY Embarked\n",
+        "\"\"\").show()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "a70_lvcwg5CQ",
+        "outputId": "a52cb0a9-67b0-4241-ebe1-cb044e4f18cf"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+--------+-------------------+--------+\n",
+            "|Embarked|           Survived|Effectif|\n",
+            "+--------+-------------------+--------+\n",
+            "|       Q|0.38961038961038963|      77|\n",
+            "|    null|                1.0|       2|\n",
+            "|       C| 0.5535714285714286|     168|\n",
+            "|       S|0.33695652173913043|     644|\n",
+            "+--------+-------------------+--------+\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from pyspark.ml.feature import StringIndexer # cha=C3=AEne -&gt; n=
+ombre\n",
+        "from pyspark.ml.feature import OneHotEncoder # 0, 1, .. n -&gt; ve=
+cteur binaire\n",
+        "from pyspark.ml.feature import Imputer # remplace les valeurs manq=
+uantes\n",
+        "from pyspark.ml.feature import VectorAssembler # concat=C3=A8ne le=
+s variables\n",
+        "from pyspark.ml.pipeline import Pipeline # combine les outils"
+      ],
+      "metadata": {
+        "id": "3xFGBTOJiXWh"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# On =C3=A9vite les imports * comme :\n",
+        "# from pyspark.ml.feature import *\n",
+        "\n",
+        "# Les avis sont partag=C3=A9s entre \n",
+        "# 1 ligne par objet\n",
+        "# 1 ligne pour un module : from pyspark.ml.feature import StringIn=
+dexer, OneHotEncoder"
+      ],
+      "metadata": {
+        "id": "BFeJh5gMkz7j"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Les variables X =C3=A0 utiliser\n",
+        "# 'Pclass' -&gt; telle quelle, en num=C3=A9rique\n",
+        "# 'Sex', -&gt; encodage num=C3=A9rique, une colonne\n",
+        "# 'Age', -&gt; tel quel, en num=C3=A9rique, remplacement des valeu=
+rs manquantes\n",
+        "# 'SibSp', -&gt; tel quel\n",
+        "# 'Parch', -&gt; tel quel\n",
+        "# 'Fare', -&gt; tel quel\n",
+        "# 'Embarked' -&gt; OHE, remplacement des valeurs manquantes [ou dr=
+opna()]"
+      ],
+      "metadata": {
+        "id": "pVLsHJUClpiz"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "titanic_ddf.describe().where('summary =3D=3D \"count\"').show()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "7NQXuN9-oDNK",
+        "outputId": "88d38134-48e9-4946-81bf-def5f5aa0cd1"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-------+-----------+--------+------+----+---+---+-----+-----+=
+------+----+-----+--------+\n",
+            "|summary|PassengerId|Survived|Pclass|Name|Sex|Age|SibSp|Parch|=
+Ticket|Fare|Cabin|Embarked|\n",
+            "+-------+-----------+--------+------+----+---+---+-----+-----+=
+------+----+-----+--------+\n",
+            "|  count|        891|     891|   891| 891|891|714|  891|  891|=
+   891| 891|  204|     889|\n",
+            "+-------+-----------+--------+------+----+---+---+-----+-----+=
+------+----+-----+--------+\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "nsex =3D StringIndexer(inputCol=3D'Sex', outputCol=3D'nsex')\n",
+        "nage =3D Imputer(inputCol=3D'Age', outputCol=3D'nage', strategy=3D=
+'mean')\n",
+        "nembarked =3D StringIndexer(inputCol=3D'Embarked',\n",
+        "                          outputCol=3D'nembarked',\n",
+        "                          handleInvalid=3D'skip', # supprime les l=
+ignes =C3=A0 valeur manquante sur Embarked\n",
+        "                          )\n",
+        "ohe_embarked =3D OneHotEncoder(inputCol=3D'nembarked', outputCol=
+=3D'oheembarked')\n",
+        "\n",
+        "vector =3D VectorAssembler(inputCols=3D['Pclass', 'nsex', 'nage', =
+'SibSp', 'Parch', 'Fare', 'oheembarked'],\n",
+        "                         outputCol=3D'features',\n",
+        "                         )\n",
+        "\n",
+        "pipeline =3D Pipeline(stages=3D[nsex, nage, nembarked, ohe_embarke=
+d, vector])"
+      ],
+      "metadata": {
+        "id": "rMP1lpffoHiX"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# fit : pr=C3=A9pare le pipeline sur les donn=C3=A9es (calcul de l=
+a moyenne, comptage des modalit=C3=A9s, etc.)\n",
+        "# transform : applique les transformations au dataframe et renvoie=
+ le dataframe transform=C3=A9\n",
+        "pipeline.fit(titanic_ddf).transform(titanic_ddf).show(8, truncate=
+=3DFalse)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "nqv5GG1BxtnF",
+        "outputId": "1346abff-3dce-4d0e-ce15-db547c0949fe"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-----------+--------+------+---------------------------------=
+------------------+------+----+-----+-----+----------------+-------+-----+-=
+-------+----+-----------------+---------+-------------+--------------------=
+----------------------+\n",
+            "|PassengerId|Survived|Pclass|Name                             =
+                  |Sex   |Age |SibSp|Parch|Ticket          |Fare   |Cabin|E=
+mbarked|nsex|nage             |nembarked|oheembarked  |features            =
+                      |\n",
+            "+-----------+--------+------+---------------------------------=
+------------------+------+----+-----+-----+----------------+-------+-----+-=
+-------+----+-----------------+---------+-------------+--------------------=
+----------------------+\n",
+            "|1          |0       |3     |Braund, Mr. Owen Harris          =
+                  |male  |22.0|1    |0    |A/5 21171       |7.25   |null |S=
+       |0.0 |22.0             |0.0      |(2,[0],[1.0])|[3.0,0.0,22.0,1.0,0.=
+0,7.25,1.0,0.0]       |\n",
+            "|2          |1       |1     |Cumings, Mrs. John Bradley (Flore=
+nce Briggs Thayer)|female|38.0|1    |0    |PC 17599        |71.2833|C85  |C=
+       |1.0 |38.0             |1.0      |(2,[1],[1.0])|[1.0,1.0,38.0,1.0,0.=
+0,71.2833,0.0,1.0]    |\n",
+            "|3          |1       |3     |Heikkinen, Miss. Laina           =
+                  |female|26.0|0    |0    |STON/O2. 3101282|7.925  |null |S=
+       |1.0 |26.0             |0.0      |(2,[0],[1.0])|[3.0,1.0,26.0,0.0,0.=
+0,7.925,1.0,0.0]      |\n",
+            "|4          |1       |1     |Futrelle, Mrs. Jacques Heath (Lil=
+y May Peel)       |female|35.0|1    |0    |113803          |53.1   |C123 |S=
+       |1.0 |35.0             |0.0      |(2,[0],[1.0])|[1.0,1.0,35.0,1.0,0.=
+0,53.1,1.0,0.0]       |\n",
+            "|5          |0       |3     |Allen, Mr. William Henry         =
+                  |male  |35.0|0    |0    |373450          |8.05   |null |S=
+       |0.0 |35.0             |0.0      |(2,[0],[1.0])|(8,[0,2,5,6],[3.0,35=
+.0,8.05,1.0])         |\n",
+            "|6          |0       |3     |Moran, Mr. James                 =
+                  |male  |null|0    |0    |330877          |8.4583 |null |Q=
+       |0.0 |29.69911764705882|2.0      |(2,[],[])    |(8,[0,2,5],[3.0,29.6=
+9911764705882,8.4583])|\n",
+            "|7          |0       |1     |McCarthy, Mr. Timothy J          =
+                  |male  |54.0|0    |0    |17463           |51.8625|E46  |S=
+       |0.0 |54.0             |0.0      |(2,[0],[1.0])|(8,[0,2,5,6],[1.0,54=
+.0,51.8625,1.0])      |\n",
+            "|8          |0       |3     |Palsson, Master. Gosta Leonard   =
+                  |male  |2.0 |3    |1    |349909          |21.075 |null |S=
+       |0.0 |2.0              |0.0      |(2,[0],[1.0])|[3.0,0.0,2.0,3.0,1.0=
+,21.075,1.0,0.0]      |\n",
+            "+-----------+--------+------+---------------------------------=
+------------------+------+----+-----+-----+----------------+-------+-----+-=
+-------+----+-----------------+---------+-------------+--------------------=
+----------------------+\n",
+            "only showing top 8 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Mod=C3=A9lisation"
+      ],
+      "metadata": {
+        "id": "X1Q1h6N64aZD"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from pyspark.ml.classification import LogisticRegression, RandomFo=
+restClassifier"
+      ],
+      "metadata": {
+        "id": "BklH2QoMzi6k"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "logreg =3D LogisticRegression(labelCol=3D'Survived')\n",
+        "pipeline_logreg =3D Pipeline(stages=3D[nsex, nage, nembarked, ohe_=
+embarked, vector, logreg])"
+      ],
+      "metadata": {
+        "id": "KhOLOr864mkJ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model_logreg =3D pipeline_logreg.fit(titanic_ddf)"
+      ],
+      "metadata": {
+        "id": "Jjux9nwt4-bp"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model_logreg"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "gv5pMxQT5SQJ",
+        "outputId": "4ff43077-58fd-4228-d635-23d9bf4094d5"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "PipelineModel_934556b8862c"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 134
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Acc=C3=A9der =C3=A0 la logistique entra=C3=AEn=C3=A9e"
+      ],
+      "metadata": {
+        "id": "oA25rPhs5e25"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model_logreg.stages[-1]"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "KHnUdOVJ5YAr",
+        "outputId": "2e9a2ea3-f7fa-4dd9-f25b-bceaa9f503e3"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "LogisticRegressionModel: uid=3DLogisticRegression_3fecfbf427=
+83, numClasses=3D2, numFeatures=3D8"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 135
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 'Pclass', 'nsex', 'nage', 'SibSp', 'Parch', 'Fare', 'oheembarked=
+' -&gt; S/C/Q\n",
+        "model_logreg.stages[-1].coefficients"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "omK9-X7x5rrl",
+        "outputId": "0523dcb0-0ca9-407d-ac34-ba69311932d8"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "DenseVector([-1.1001, 2.7187, -0.0399, -0.3258, -0.0926, 0.0=
+019, -0.3847, 0.0341])"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 136
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model_logreg.stages[-1].intercept"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "X42QCEbB5w-r",
+        "outputId": "fec468eb-e47c-4c76-8c78-45f04d27556c"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "2.5324183577124084"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 137
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "list(zip(['Pclass', 'nsex', 'nage', 'SibSp', 'Parch', 'Fare', 'ohe=
+embarked_S', 'oheembarked_C'],\n",
+        "         model_logreg.stages[-1].coefficients))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "IeLmzaXP52JM",
+        "outputId": "4fed8657-2545-483e-c149-24e3fe5a719a"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "[('Pclass', -1.1000586479456775),\n",
+              " ('nsex', 2.7186962954690537),\n",
+              " ('nage', -0.039900712313497136),\n",
+              " ('SibSp', -0.3257760651555667),\n",
+              " ('Parch', -0.09260288339796707),\n",
+              " ('Fare', 0.001918251302387119),\n",
+              " ('oheembarked_S', -0.38474178023286354),\n",
+              " ('oheembarked_C', 0.034075742530062)]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 138
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "pd.DataFrame(list(zip(['Pclass', 'nsex', 'nage', 'SibSp', 'Parch',=
+ 'Fare', 'oheembarked_S', 'oheembarked_C'],\n",
+        "                      model_logreg.stages[-1].coefficients)))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 300
+        },
+        "id": "Nqmpjup1-W6h",
+        "outputId": "200d2ea0-9bb0-43c5-a212-273d79346378"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "               0         1\n",
+              "0         Pclass -1.100059\n",
+              "1           nsex  2.718696\n",
+              "2           nage -0.039901\n",
+              "3          SibSp -0.325776\n",
+              "4          Parch -0.092603\n",
+              "5           Fare  0.001918\n",
+              "6  oheembarked_S -0.384742\n",
+              "7  oheembarked_C  0.034076"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=3D"\&quot;df-9bcfad12-663f-451a-a4c4-9196e1b6237e\=
+&quot;">\n",
+              "    <div class=3D"\&quot;colab-df-container\&quot;">\n",
+              "      <div>\n",
+              "\n",
+              "\n",
+              "  \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "  \n",
+              "  \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "    \n",
+              "      \n",
+              "      \n",
+              "      \n",
+              "    \n",
+              "  \n",
+              "<table border=3D"\&quot;1\&quot;" class=3D"\&quot;dataframe\=
+&quot;"><thead><tr style=3D"\&quot;text-align:" right;\"=3D""><th></th><th>=
+0</th><th>1</th></tr></thead><tbody><tr><th>0</th><td>Pclass</td><td>-1.100=
+059</td></tr><tr><th>1</th><td>nsex</td><td>2.718696</td></tr><tr><th>2</th=
+><td>nage</td><td>-0.039901</td></tr><tr><th>3</th><td>SibSp</td><td>-0.325=
+776</td></tr><tr><th>4</th><td>Parch</td><td>-0.092603</td></tr><tr><th>5</=
+th><td>Fare</td><td>0.001918</td></tr><tr><th>6</th><td>oheembarked_S</td><=
+td>-0.384742</td></tr><tr><th>7</th><td>oheembarked_C</td><td>0.034076</td>=
+</tr></tbody></table>\n",
+              "</div>\n",
+              "      <button class=3D"\&quot;colab-df-convert\&quot;" "=3D"=
+" title=3D"\&quot;Convert" this=3D"" dataframe=3D"" to=3D"" an=3D"" interac=
+tive=3D"" table.\"\n",=3D"" style=3D"\&quot;display:none;\&quot;">\n",
+              "        \n",
+              "  <svg xmlns=3D"\&quot;http://www.w3.org/2000/svg\&quot;" he=
+ight=3D"\&quot;24px\&quot;viewBox=3D\&quot;0" 0=3D"" 24=3D"" 24\"\n",=3D"" =
+"=3D"" width=3D"\&quot;24px\&quot;">\n",
+              "    <path d=3D"\&quot;M0" 0h24v24h0v0z\"=3D"" fill=3D"\&quot=
+;none\&quot;/">\n",
+              "    <path d=3D"\&quot;M18.56" 5.44l.94=3D"" 2.06.94-2.06=3D"=
+" 2.06-.94-2.06-.94-.94-2.06-.94=3D"" 2.06-2.06.94zm-11=3D"" 1l8.5=3D"" 8.5=
+l.94-2.06=3D"" 2.06-.94-2.06-.94l8.5=3D"" 2.5l-.94=3D"" 2.06-2.06.94zm10=3D=
+"" 10l.94=3D"" 2.06-2.06.94z\"=3D""></path><path d=3D"\&quot;M17.41" 7.96l-=
+1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52=3D"" 0-1.04.2-1.43.59l10.3=3D"" 9.45l=
+-7.72=3D"" 7.72c-.78.78-.78=3D"" 2.05=3D"" 0=3D"" 2.83l4=3D"" 21.41c.39.39.=
+9.59=3D"" 1.41.59.51=3D"" 1.02-.2=3D"" 1.41-.59l7.78-7.78=3D"" 2.81-2.81c.8=
+-.78.8-2.07=3D"" 0-2.86zm5.41=3D"" 20l4=3D"" 18.59l7.72-7.72=3D"" 1.47=3D""=
+ 1.35l5.41=3D"" 20z\"=3D""></path>\n",
+              "  </path></svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  \n",
+              "\n",
+              "      \n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 152
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#https://dpaste.org/1cVB1\n",
+        "\n",
+        "import pandas as pd\n",
+        "import seaborn as sns\n",
+        "\n",
+        "sns.set()\n",
+        "\n",
+        "(pd.DataFrame(list(zip(['Pclass', 'nsex', 'nage', 'SibSp', 'Parch'=
+, 'Fare', 'oheembarked_S', 'oheembarked_C'],\n",
+        "                      model_logreg.stages[-1].coefficients)))\n",
+        "  .set_index(0)\n",
+        "  .sort_values(1, ascending=3DFalse)\n",
+        "  .plot.barh());"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 268
+        },
+        "id": "KT1LNFpm8kwA",
+        "outputId": "8273c64e-faed-4d5c-b742-0aebc5674858"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<figure size=3D"" 432x288=3D"" with=3D"" 1=3D"" axes=3D"">"
+            ],
+            "image/png": "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
+Ft2zb69+/f4HnM5jt16pTn53379nH8+HHuvPNOn+erC39tu7ry97abP38+e/fuZdGiRdhstmtOU=
+9f3jb/y/Xgb/s///A9Wq/WKYvUH3ZRbTNm0aROvvfYapaWlNGvWjBYtWrBs2TI6duzIb3/7W265=
+5RZGjhwJwJo1a/jDH/4AXPoL/MUXX/T58Mv58+eZPn06+/btw2q18swzz9C3b1+AK/KtWLGC1at=
+XExwcjMvlIi0tjccff9wnmQ4fPsz06dMpLS3lpptuYu7cubRv356xY8eSkZHBT37yE1wuFy+//D=
+KffvopAGPHjvWc6OFrdck3bdo0vvnmG6xWK82aNSMjI4MHH3zQ59l+85vf8NFHH3H27FnCw8MJC=
+wtj8+bNAbPt6pLPX9sO4NChQwwcOJB27drRvHlzANq0acOiRYtITU3l7bffJioqqsb3TSDke/TR=
+RyksLMRisWC323n22WdJSEjweb6aqERFRERM0nCuiIiISSpRERERk1SiIiIiJqlERURETFKJioi=
+ImKQSFRERMUklKiIiYpJKVERExKT/D5YxLuHzUpOHAAAAAElFTkSuQmCC\n"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Partionnement apprentissage - test"
+      ],
+      "metadata": {
+        "id": "xaiDcSXm_z-0"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "train_ddf, test_ddf =3D titanic_ddf.randomSplit([2.0, 1.0]) # Spli=
+t 2/3 1/3"
+      ],
+      "metadata": {
+        "id": "CWf5rNlO83LR"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "train_ddf.count(), test_ddf.count(), train_ddf.count() + test_ddf.=
+count()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Q9UvT_mbAzyl",
+        "outputId": "bc6b6bd7-3d96-4c6c-ecfa-354224261e00"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "(601, 290, 891)"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 18
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# On entraine, fit(), sur le train set\n",
+        "# On applique, transform(), sur le test set\n",
+        "\n",
+        "model_trained =3D pipeline_logreg.fit(train_ddf)\n",
+        "model_trained.transform(test_ddf).show(5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "OfCp-U0aA8PV",
+        "outputId": "99a75d77-4119-49a6-c758-4f916264f571"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+------+-------+-----+--------+----+----+---------+-------------=
++--------------------+--------------------+--------------------+----------+=
+\n",
+            "|PassengerId|Survived|Pclass|                Name|   Sex| Age|=
+SibSp|Parch|Ticket|   Fare|Cabin|Embarked|nsex|nage|nembarked|  oheembarked=
+|            features|       rawPrediction|         probability|prediction|=
+\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+------+-------+-----+--------+----+----+---------+-------------=
++--------------------+--------------------+--------------------+----------+=
+\n",
+            "|          7|       0|     1|McCarthy, Mr. Tim...|  male|54.0|=
+    0|    0| 17463|51.8625|  E46|       S| 0.0|54.0|      0.0|(2,[0],[1.0])=
+|(8,[0,2,5,6],[1.0...|[1.12253000459919...|[0.75445770470524...|       0.0|=
+\n",
+            "|         14|       0|     3|Andersson, Mr. An...|  male|39.0|=
+    1|    5|347082| 31.275| null|       S| 0.0|39.0|      0.0|(2,[0],[1.0])=
+|[3.0,0.0,39.0,1.0...|[3.17195359142440...|[0.95976509237719...|       0.0|=
+\n",
+            "|         15|       0|     3|Vestrom, Miss. Hu...|female|14.0|=
+    0|    0|350406| 7.8542| null|       S| 1.0|14.0|      0.0|(2,[0],[1.0])=
+|[3.0,1.0,14.0,0.0...|[-1.0676649556109...|[0.25584739861439...|       1.0|=
+\n",
+            "|         16|       1|     2|Hewlett, Mrs. (Ma...|female|55.0|=
+    0|    0|248706|   16.0| null|       S| 1.0|55.0|      0.0|(2,[0],[1.0])=
+|[2.0,1.0,55.0,0.0...|[-0.4174159861995...|[0.39713524698555...|       1.0|=
+\n",
+            "|         17|       0|     3|Rice, Master. Eugene|  male| 2.0|=
+    4|    1|382652| 29.125| null|       Q| 0.0| 2.0|      2.0|    (2,[],[])=
+|[3.0,0.0,2.0,4.0,...|[2.09818702395775...|[0.89072684221204...|       0.0|=
+\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+------+-------+-----+--------+----+----+---------+-------------=
++--------------------+--------------------+--------------------+----------+=
+\n",
+            "only showing top 5 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Evaluation de la performance"
+      ],
+      "metadata": {
+        "id": "--8ZL0IrCiBG"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "results_ddf =3D model_trained.transform(test_ddf)"
+      ],
+      "metadata": {
+        "id": "MwppW4P_BR0n"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "results_ddf.where('Survived =3D=3D Prediction').count() / results_=
+ddf.count()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "eGMG1MnXCrwn",
+        "outputId": "453547d2-945a-4706-9673-aed30407426d"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0.8137931034482758"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 21
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "results_ddf.show(5, truncate=3DFalse)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "0wAZ1xwIWS4x",
+        "outputId": "ad6b47d9-9b69-4f09-bb93-224cce6f0b97"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-----------+--------+------+---------------------------------=
+---+------+----+-----+-----+------+-------+-----+--------+----+----+-------=
+--+-------------+-------------------------------------+--------------------=
+--------------------+----------------------------------------+----------+\n=
+",
+            "|PassengerId|Survived|Pclass|Name                             =
+   |Sex   |Age |SibSp|Parch|Ticket|Fare   |Cabin|Embarked|nsex|nage|nembark=
+ed|oheembarked  |features                             |rawPrediction       =
+                    |probability                             |prediction|\n=
+",
+            "+-----------+--------+------+---------------------------------=
+---+------+----+-----+-----+------+-------+-----+--------+----+----+-------=
+--+-------------+-------------------------------------+--------------------=
+--------------------+----------------------------------------+----------+\n=
+",
+            "|7          |0       |1     |McCarthy, Mr. Timothy J          =
+   |male  |54.0|0    |0    |17463 |51.8625|E46  |S       |0.0 |54.0|0.0    =
+  |(2,[0],[1.0])|(8,[0,2,5,6],[1.0,54.0,51.8625,1.0]) |[1.122530004599199,-=
+1.122530004599199]  |[0.7544577047052455,0.24554229529475446]|0.0       |\n=
+",
+            "|14         |0       |3     |Andersson, Mr. Anders Johan      =
+   |male  |39.0|1    |5    |347082|31.275 |null |S       |0.0 |39.0|0.0    =
+  |(2,[0],[1.0])|[3.0,0.0,39.0,1.0,5.0,31.275,1.0,0.0]|[3.171953591424408,-=
+3.171953591424408]  |[0.959765092377195,0.040234907622805016]|0.0       |\n=
+",
+            "|15         |0       |3     |Vestrom, Miss. Hulda Amanda Adolf=
+ina|female|14.0|0    |0    |350406|7.8542 |null |S       |1.0 |14.0|0.0    =
+  |(2,[0],[1.0])|[3.0,1.0,14.0,0.0,0.0,7.8542,1.0,0.0]|[-1.0676649556109652=
+,1.0676649556109652]|[0.25584739861439976,0.7441526013856002]|1.0       |\n=
+",
+            "|16         |1       |2     |Hewlett, Mrs. (Mary D Kingcome)  =
+   |female|55.0|0    |0    |248706|16.0   |null |S       |1.0 |55.0|0.0    =
+  |(2,[0],[1.0])|[2.0,1.0,55.0,0.0,0.0,16.0,1.0,0.0]  |[-0.4174159861995812=
+,0.4174159861995812]|[0.3971352469855505,0.6028647530144495] |1.0       |\n=
+",
+            "|17         |0       |3     |Rice, Master. Eugene             =
+   |male  |2.0 |4    |1    |382652|29.125 |null |Q       |0.0 |2.0 |2.0    =
+  |(2,[],[])    |[3.0,0.0,2.0,4.0,1.0,29.125,0.0,0.0] |[2.0981870239577547,=
+-2.0981870239577547]|[0.8907268422120426,0.10927315778795743]|0.0       |\n=
+",
+            "+-----------+--------+------+---------------------------------=
+---+------+----+-----+-----+------+-------+-----+--------+----+----+-------=
+--+-------------+-------------------------------------+--------------------=
+--------------------+----------------------------------------+----------+\n=
+",
+            "only showing top 5 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from pyspark.ml.evaluation import BinaryClassificationEvaluator\n"=
+,
+        "\n",
+        "# Par d=C3=A9faut, la m=C3=A9trique est l'AUC ROC\n",
+        "evaluator =3D BinaryClassificationEvaluator(labelCol=3D'Survived',=
+\n",
+        "                                          rawPredictionCol=3D'rawP=
+rediction',\n",
+        "                                          metricName=3D'areaUnderP=
+R')\n",
+        "\n",
+        "evaluator.getMetricName(), evaluator.evaluate(results_ddf)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "5fjCHR7FC3CX",
+        "outputId": "830a3448-7f00-455a-91d4-9c289b2484ac"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "('areaUnderPR', 0.8678994233744037)"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 26
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Utilisation d'une random forest"
+      ],
+      "metadata": {
+        "id": "dDvG4yY9Yw5a"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "random_forest =3D RandomForestClassifier(labelCol=3D'Survived')\n"=
+,
+        "pipeline_random_forest =3D Pipeline(stages=3D[nsex, nage, nembarke=
+d, ohe_embarked, vector, random_forest])"
+      ],
+      "metadata": {
+        "id": "GKYNAFNZEQIa"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# On entraine, fit(), sur le train set\n",
+        "# On applique, transform(), sur le test set\n",
+        "\n",
+        "model_trained_rf =3D pipeline_random_forest.fit(train_ddf)\n",
+        "model_trained_rf.transform(test_ddf).show(5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "KIpas6-XZOxW",
+        "outputId": "39e677f7-c85c-4a18-dfed-f8d1a70c4f08"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+------+-------+-----+--------+----+----+---------+-------------=
++--------------------+--------------------+--------------------+----------+=
+\n",
+            "|PassengerId|Survived|Pclass|                Name|   Sex| Age|=
+SibSp|Parch|Ticket|   Fare|Cabin|Embarked|nsex|nage|nembarked|  oheembarked=
+|            features|       rawPrediction|         probability|prediction|=
+\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+------+-------+-----+--------+----+----+---------+-------------=
++--------------------+--------------------+--------------------+----------+=
+\n",
+            "|          7|       0|     1|McCarthy, Mr. Tim...|  male|54.0|=
+    0|    0| 17463|51.8625|  E46|       S| 0.0|54.0|      0.0|(2,[0],[1.0])=
+|(8,[0,2,5,6],[1.0...|[14.6892531206036...|[0.73446265603018...|       0.0|=
+\n",
+            "|         14|       0|     3|Andersson, Mr. An...|  male|39.0|=
+    1|    5|347082| 31.275| null|       S| 0.0|39.0|      0.0|(2,[0],[1.0])=
+|[3.0,0.0,39.0,1.0...|[15.5823583014992...|[0.77911791507496...|       0.0|=
+\n",
+            "|         15|       0|     3|Vestrom, Miss. Hu...|female|14.0|=
+    0|    0|350406| 7.8542| null|       S| 1.0|14.0|      0.0|(2,[0],[1.0])=
+|[3.0,1.0,14.0,0.0...|[7.24023632698267...|[0.36201181634913...|       1.0|=
+\n",
+            "|         16|       1|     2|Hewlett, Mrs. (Ma...|female|55.0|=
+    0|    0|248706|   16.0| null|       S| 1.0|55.0|      0.0|(2,[0],[1.0])=
+|[2.0,1.0,55.0,0.0...|[4.87091605437167...|[0.24354580271858...|       1.0|=
+\n",
+            "|         17|       0|     3|Rice, Master. Eugene|  male| 2.0|=
+    4|    1|382652| 29.125| null|       Q| 0.0| 2.0|      2.0|    (2,[],[])=
+|[3.0,0.0,2.0,4.0,...|[17.6596398893659...|[0.88298199446829...|       0.0|=
+\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+------+-------+-----+--------+----+----+---------+-------------=
++--------------------+--------------------+--------------------+----------+=
+\n",
+            "only showing top 5 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Application de la RF =C3=A0 l'ensemble de test\n",
+        "results_rf_ddf =3D model_trained_rf.transform(test_ddf)"
+      ],
+      "metadata": {
+        "id": "z98ijiHVZauF"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Calcul de la m=C3=A9trique sur le test set (r=C3=A9sultats)\n",
+        "evaluator.getMetricName(), evaluator.evaluate(results_rf_ddf)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Z72y38iEZ0LI",
+        "outputId": "f6ced95f-c63f-46da-cd44-f8714e554847"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "('areaUnderPR', 0.8798448444863323)"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 31
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Validation crois=C3=A9e avec Spark"
+      ],
+      "metadata": {
+        "id": "VHpvPS1eanFl"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from pyspark.ml.tuning import CrossValidator, ParamGridBuilder"
+      ],
+      "metadata": {
+        "id": "TKBkxsMfaAV2"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# On construit la grille des hyperparam=C3=A8tres\n",
+        "\n",
+        "rf_paramGrid =3D (ParamGridBuilder()\n",
+        "                .addGrid(random_forest.numTrees, [10, 20, 50]) # O=
+n teste 10, 20 et 50 arbres\n",
+        "                .addGrid(random_forest.maxDepth, [2, 5, 8]).build(=
+)) # On teste une profondeur de 2, 5 et 8 niveaux"
+      ],
+      "metadata": {
+        "id": "WPfxhCl1bcf5"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "crossval =3D CrossValidator(\n",
+        "    estimator=3Dpipeline_random_forest,\n",
+        "    estimatorParamMaps=3Drf_paramGrid,\n",
+        "    evaluator=3Devaluator,\n",
+        "    numFolds=3D5\n",
+        ")"
+      ],
+      "metadata": {
+        "id": "P42s82Vadcr9"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "%%time\n",
+        "cv_rf_model =3D crossval.fit(titanic_ddf)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JejmezzQf6BW",
+        "outputId": "3501d16d-b2cc-41b1-afb0-62423a1cb4a8"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "CPU times: user 8.81 s, sys: 1.95 s, total: 10.8 s\n",
+            "Wall time: 1min 58s\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# On r=C3=A9cup=C3=A8re les param=C3=A8tres de la RF\n",
+        "# dans le meilleur mod=C3=A8le (.bestModel)\n",
+        "# la RF est le dernier stages du pipeline (stages[-1])\n",
+        "# et on extrait les param=C3=A8tres\n",
+        "cv_rf_model.bestModel.stages[-1].extractParamMap()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "DuHPgAOIf79P",
+        "outputId": "e02c98c7-7d46-42ba-f187-84569827e93c"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "{Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'bootstrap', doc=3D'Whether bootstrap samples are used when building tre=
+es.'): True,\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'cacheNodeIds', doc=3D'If false, the algorithm will pass trees to execut=
+ors to match instances with nodes. If true, the algorithm will cache node I=
+Ds for each instance. Caching can speed up training of deeper trees. Users =
+can set how often should the cache be checkpointed or disable it by setting=
+ checkpointInterval.'): False,\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'checkpointInterval', doc=3D'set checkpoint interval (&gt;=3D 1) or disa=
+ble checkpoint (-1). E.g. 10 means that the cache will get checkpointed eve=
+ry 10 iterations. Note: this setting will be ignored if the checkpoint dire=
+ctory is not set in the SparkContext.'): 10,\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'featureSubsetStrategy', doc=3D\"The number of features to consider for =
+splits at each tree node. Supported options: 'auto' (choose automatically f=
+or task: If numTrees =3D=3D 1, set to 'all'. If numTrees &gt; 1 (forest), s=
+et to 'sqrt' for classification and to 'onethird' for regression), 'all' (u=
+se all features), 'onethird' (use 1/3 of the features), 'sqrt' (use sqrt(nu=
+mber of features)), 'log2' (use log2(number of features)), 'n' (when n is i=
+n the range (0, 1.0], use n * number of features. When n is in the range (1=
+, number of features), use n features). default =3D 'auto'\"): 'auto',\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'featuresCol', doc=3D'features column name.'): 'features',\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'impurity', doc=3D'Criterion used for information gain calculation (case=
+-insensitive). Supported options: entropy, gini'): 'gini',\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'labelCol', doc=3D'label column name.'): 'Survived',\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'leafCol', doc=3D'Leaf indices column name. Predicted leaf index of each=
+ instance in each tree by preorder.'): '',\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'maxBins', doc=3D'Max number of bins for discretizing continuous feature=
+s.  Must be &gt;=3D2 and &gt;=3D number of categories for any categorical f=
+eature.'): 32,\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'maxDepth', doc=3D'Maximum depth of the tree. (&gt;=3D 0) E.g., depth 0 =
+means 1 leaf node; depth 1 means 1 internal node + 2 leaf nodes. Must be in=
+ range [0, 30].'): 5,\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'maxMemoryInMB', doc=3D'Maximum memory in MB allocated to histogram aggr=
+egation. If too small, then 1 node will be split per iteration, and its agg=
+regates may exceed this size.'): 256,\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'minInfoGain', doc=3D'Minimum information gain for a split to be conside=
+red at a tree node.'): 0.0,\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'minInstancesPerNode', doc=3D'Minimum number of instances each child mus=
+t have after split. If a split causes the left or right child to have fewer=
+ than minInstancesPerNode, the split will be discarded as invalid. Should b=
+e &gt;=3D 1.'): 1,\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'minWeightFractionPerNode', doc=3D'Minimum fraction of the weighted samp=
+le count that each child must have after split. If a split causes the fract=
+ion of the total weight in the left or right child to be less than minWeigh=
+tFractionPerNode, the split will be discarded as invalid. Should be in inte=
+rval [0.0, 0.5).'): 0.0,\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'numTrees', doc=3D'Number of trees to train (&gt;=3D 1).'): 20,\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'predictionCol', doc=3D'prediction column name.'): 'prediction',\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'probabilityCol', doc=3D'Column name for predicted class conditional pro=
+babilities. Note: Not all models output well-calibrated probability estimat=
+es! These probabilities should be treated as confidences, not precise proba=
+bilities.'): 'probability',\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'rawPredictionCol', doc=3D'raw prediction (a.k.a. confidence) column nam=
+e.'): 'rawPrediction',\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'seed', doc=3D'random seed.'): -8816970084909616998,\n",
+              " Param(parent=3D'RandomForestClassifier_2de152395a51', name=
+=3D'subsamplingRate', doc=3D'Fraction of the training data used for learnin=
+g each decision tree, in range (0, 1].'): 1.0}"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 50
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "cv_rf_model.bestModel.transform(test_ddf).show(5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "XMm0ZRldkAx2",
+        "outputId": "7c37703b-06c2-4710-ce14-664a7bb12af8"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+------+-------+-----+--------+----+----+---------+-------------=
++--------------------+--------------------+--------------------+----------+=
+\n",
+            "|PassengerId|Survived|Pclass|                Name|   Sex| Age|=
+SibSp|Parch|Ticket|   Fare|Cabin|Embarked|nsex|nage|nembarked|  oheembarked=
+|            features|       rawPrediction|         probability|prediction|=
+\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+------+-------+-----+--------+----+----+---------+-------------=
++--------------------+--------------------+--------------------+----------+=
+\n",
+            "|          7|       0|     1|McCarthy, Mr. Tim...|  male|54.0|=
+    0|    0| 17463|51.8625|  E46|       S| 0.0|54.0|      0.0|(2,[0],[1.0])=
+|(8,[0,2,5,6],[1.0...|[15.1356308664362...|[0.75678154332181...|       0.0|=
+\n",
+            "|         14|       0|     3|Andersson, Mr. An...|  male|39.0|=
+    1|    5|347082| 31.275| null|       S| 0.0|39.0|      0.0|(2,[0],[1.0])=
+|[3.0,0.0,39.0,1.0...|[16.1096284698220...|[0.80548142349110...|       0.0|=
+\n",
+            "|         15|       0|     3|Vestrom, Miss. Hu...|female|14.0|=
+    0|    0|350406| 7.8542| null|       S| 1.0|14.0|      0.0|(2,[0],[1.0])=
+|[3.0,1.0,14.0,0.0...|[9.47642333465458...|[0.47382116673272...|       1.0|=
+\n",
+            "|         16|       1|     2|Hewlett, Mrs. (Ma...|female|55.0|=
+    0|    0|248706|   16.0| null|       S| 1.0|55.0|      0.0|(2,[0],[1.0])=
+|[2.0,1.0,55.0,0.0...|[3.78578453055605...|[0.18928922652780...|       1.0|=
+\n",
+            "|         17|       0|     3|Rice, Master. Eugene|  male| 2.0|=
+    4|    1|382652| 29.125| null|       Q| 0.0| 2.0|      2.0|    (2,[],[])=
+|[3.0,0.0,2.0,4.0,...|[15.5344768240257...|[0.77672384120128...|       0.0|=
+\n",
+            "+-----------+--------+------+--------------------+------+----+=
+-----+-----+------+-------+-----+--------+----+----+---------+-------------=
++--------------------+--------------------+--------------------+----------+=
+\n",
+            "only showing top 5 rows\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "trUnaByUms5d"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "VXZeiLoBm4jM"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}</figure></module></ipython-input-44-b62100a674d8></pyspark.sql.session.sp=
+arksession></body><grammarly-desktop-integration data-grammarly-shadow-root=
+=3D"true"><template shadowmode=3D"open"><div aria-label=3D"grammarly-integr=
+ation" role=3D"group" tabindex=3D"-1" class=3D"grammarly-desktop-integratio=
+n" data-content=3D"{&quot;mode&quot;:&quot;limited&quot;,&quot;isActive&quo=
+t;:false,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-de=
+sktop-integration></html>
+------MultipartBoundary--iNjjuNTEy84MQYzuTQhTpuUZZwj9q2l3RBCH7ODnlz----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-35ff8950-fa3f-4fa5-be96-850e9f9a59be@mhtml.blink
+
+@charset "utf-8";
+=0A
+------MultipartBoundary--iNjjuNTEy84MQYzuTQhTpuUZZwj9q2l3RBCH7ODnlz----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-dab71e8e-ea22-4361-a6d7-7e3dcd69be13@mhtml.blink
+
+@charset "utf-8";
+=0A
+------MultipartBoundary--iNjjuNTEy84MQYzuTQhTpuUZZwj9q2l3RBCH7ODnlz----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-5ce65b61-df98-4794-aa12-cdb4326bde58@mhtml.blink
+
+@charset "utf-8";
+=0A
+------MultipartBoundary--iNjjuNTEy84MQYzuTQhTpuUZZwj9q2l3RBCH7ODnlz----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-d5ad93ec-9951-4ec9-9792-3d3c3ba2fe91@mhtml.blink
+
+@charset "utf-8";
+=0A
+------MultipartBoundary--iNjjuNTEy84MQYzuTQhTpuUZZwj9q2l3RBCH7ODnlz----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-38df509b-78a4-4733-a998-6fbaa104eaf6@mhtml.blink
+
+@charset "utf-8";
+=0A
+------MultipartBoundary--iNjjuNTEy84MQYzuTQhTpuUZZwj9q2l3RBCH7ODnlz----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-d844d17d-2423-4e5a-a937-a35e9c3def3b@mhtml.blink
+
+@charset "utf-8";
+=0A
+------MultipartBoundary--iNjjuNTEy84MQYzuTQhTpuUZZwj9q2l3RBCH7ODnlz----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-d886bf03-4d61-4a95-81de-b1a307253b38@mhtml.blink
+
+@charset "utf-8";
+=0A
+------MultipartBoundary--iNjjuNTEy84MQYzuTQhTpuUZZwj9q2l3RBCH7ODnlz----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-bd1cadf9-4caa-46e6-84e1-a56438850648@mhtml.blink
+
+@charset "utf-8";
+=0A
+------MultipartBoundary--iNjjuNTEy84MQYzuTQhTpuUZZwj9q2l3RBCH7ODnlz----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-df7b9855-6dd7-45ba-9eef-c74f1eb1d301@mhtml.blink
+
+@charset "utf-8";
+=0A
+------MultipartBoundary--iNjjuNTEy84MQYzuTQhTpuUZZwj9q2l3RBCH7ODnlz----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-359da651-cc62-4a3c-a00b-1eb792cd23a5@mhtml.blink
+
+@charset "utf-8";
+=0A
+------MultipartBoundary--iNjjuNTEy84MQYzuTQhTpuUZZwj9q2l3RBCH7ODnlz------
